@@ -1,0 +1,175 @@
+Python 2.7.9 (default, Dec 14 2014, 14:01:27) 
+[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.56)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 1+1
+2
+>>> 2 * 3
+6
+>>> 1 + 2 * 3
+7
+>>> 21 / 7
+3
+>>> 2 - 1
+1
+>>> 2 ** 3
+8
+>>> 10 % 3
+1
+>>> 1 * / 3
+  File "<stdin>", line 1
+    1 * / 3
+        ^
+SyntaxError: invalid syntax
+>>> x = 3
+>>> 2 * x
+6
+>>> x = "apples"
+>>> x
+'apples'
+>>> x = "let's go"
+>>> x
+"let's go"
+>>> x = True
+>>> x
+True
+>>> x = "True"
+>>> print x
+True
+>>> print 3 ** 2
+9
+>>> my_fav_word = "apples"
+>>> type("apples")
+<type 'str'>
+>>> type(True)
+<type 'bool'>
+>>> type(true)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'true' is not defined
+>>> type(10)
+<type 'int'>
+>>> type(100000)
+<type 'int'>
+>>> type(-234)
+<type 'int'>
+>>> type(2.2)
+<type 'float'>
+>>> type(1.0)
+<type 'float'>
+>>> 10 / 3
+3
+>>> 10.0 / 3.0
+3.3333333333333335
+>>> float(10)
+10.0
+>>> int(10.0)
+10
+>>> int(3.333)
+3
+>>> type(3)
+<type 'int'>
+>>> string(3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'string' is not defined
+>>> str(3)
+'3'
+>>> 'apples' + 'pears'
+'applespears'
+>>> 'apples' * 2
+'applesapples'
+>>> 'apples' * 4
+'applesapplesapplesapples'
+>>> x = 1
+>>> x = x + 1
+>>> x = x * 2
+>>> x = (x * 2) + 3
+>>> x
+11
+>>> x += 1
+>>> x /= 3
+>>> x < 100
+True
+>>> x < 10
+True
+>>> x < 1
+False
+>>> x > 1
+True
+>>> x == 1
+False
+>>> x <> 1
+True
+>>> x <= 1
+False
+>>> x >= 1
+True
+>>> x > 1 and x < 10
+True
+>>> x > 1 or x < 10
+True
+>>> not(x > 1 and x < 10)
+False
+>>> x > 1
+True
+>>> not(x > 1)
+False
+>>> x = -10
+>>> if x < 0:
+...     x *= -1
+... 
+>>> x
+10
+>>> [1, 3, 10, 7]
+[1, 3, 10, 7]
+>>> [1, 3, "apples", True]
+[1, 3, 'apples', True]
+>>> x = [1, 3, "apples", True]
+>>> type(x)
+<type 'list'>
+>>> len(x)
+4
+>>> len('apples')
+6
+>>> len(['apples'])
+1
+>>> x[2]
+'apples'
+>>> x[0]
+1
+>>> x[4]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> x[2:3]
+['apples']
+>>> x[2:4]
+['apples', True]
+>>> x[2:len(x)]
+['apples', True]
+>>> x[2:]
+['apples', True]
+>>> x[:4]
+[1, 3, 'apples', True]
+>>> x[:2]
+[1, 3]
+>>> [1, 3] + [4, 5]
+[1, 3, 4, 5]
+>>> x [1, 3, 5, 7]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: list indices must be integers, not tuple
+>>> x = [1, 3, 5, 7]
+>>> fruits = ["apples", "pears", "berries"]
+>>> for fruit in fruits:
+...     print "My favorite fruit is " + fruit
+... 
+My favorite fruit is apples
+My favorite fruit is pears
+My favorite fruit is berries
+>>> for fruit in fruits:
+...     if fruit == "pears":
+...             print "I found pears!"
+... 
+I found pears!
+>>> 
