@@ -28,6 +28,6 @@ and verify that it says
     ```
 and verify that the output shows:
     ```
-    ['The', 'Fulton', 'County', 'Grand', 'Jury', 'said', ...]
+    [u'The', u'Fulton', u'County', u'Grand', u'Jury', ...]
     ```
 If it does, then everything is set up!
