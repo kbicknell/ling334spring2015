@@ -67,12 +67,15 @@ img {
 </div>
 
 
-<p>First, a few reminders:</p>
+<div id="general" class="section level1">
+<h1>General</h1>
 <ul>
 <li>Make sure you have already followed the ‘nltk setup’ instructions linked on the course website.</li>
 <li>Remember to list all others you worked with at the top of your assignment.</li>
 <li>Remember that you must do your own write-up and your own programming.</li>
 </ul>
+<p><em>Turning it in.</em> In general, homework assignments in this class will involve both short answers and coding. You’ll turn in your short answers in PDF form via Canvas. But your code will be ‘turned in’ but putting it in an appropriate folder on the server (to be described below).</p>
+</div>
 <div id="linux" class="section level1">
 <h1>Linux</h1>
 <ol start="0" style="list-style-type: decimal">
@@ -92,6 +95,64 @@ chmod -R g=rx ~/ling334</code></pre></li>
 <li>What is your programming background?</li>
 <li>What is your probability theory background?</li>
 </ul></li>
+</ol>
+</div>
+<div id="regular-expressions" class="section level1">
+<h1>Regular expressions</h1>
+<ol start="2" style="list-style-type: decimal">
+<li><p><em>Counting words.</em> In class, we used <code>egrep</code> to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn’t ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we’ll make use of the <code>-o</code> flag in <code>egrep</code> to return only the matched string:</p>
+<p>egrep -o &lt;pattern&gt; &lt;filename&gt;</p>
+<p>This will return each match on a separate line. As in class, we can pipe the output of <code>egrep</code> to <code>wc</code> to count the number of matches.</p>
+<p>Using this method, you’ll count the number of times each of a list of words occurs in the Brown corpus. The full Brown corpus can be found in one file at <code>$NLTK_DATA/corpora/brown/brown_all.txt</code>. (<code>$NLTK_DATA</code> is a variable that was defined when you followed the class’s nltk setup instructions.) Make sure your regular expressions:</p>
+<pre><code>* only count whole words ('she' should not be counted for the word 'he')
+* ignore word-initial capitalization ('She' and 'she' should both be counted)
+* count singular and plural variants when applicable ('bins' _does_ count for 'bin'}</code></pre>
+<p>You’ll save your regular expressions and your results in a file called <code>problem2.txt</code> in your <code>ling334/hw1</code> directory. There should be one line of this file for each word in the list below. Each line should be formatted containing (a) the word, (b) a space, (c) your regular expression enclosed in slashes, (d) a space, and (e) the number of counts. For example, two (incorrect) lines could look as follows:</p>
+<pre><code>cactus /[ca]ctus/ 131
+app /ap+/ 112351</code></pre>
+<p>Here’s the list of words:</p>
+<pre><code>they
+the
+nomenclature
+Pennsylvania
+himself
+could
+would
+multiplicity
+almost
+decentralizing
+necessarily
+was
+have
+polyethylene
+temperature
+with
+development
+spectrometer
+that
+sockdologizing</code></pre>
+<p>Finally, short answer questions to include in your PDF write up: What general correlation do you see in the counts? What words are examples that break this pattern? Test a few and note whether they do indeed break the pattern. Speculate about why this correlation might emerge in a language system.</p></li>
+<li><p><em>Say what?</em> In English, the verb <em>say</em> can appear with a full sentence (as in ‘say it ain’t so’) or an embedded question (as in ‘say what you did’ or ‘say who you met’). Use <code>egrep</code> as in the previous problem to answer the following questions about <em>say</em>. Again, save each regular expression and the number of hits it gets in a file called <code>problem3.txt</code>. (Answer the other questions in your PDF.)</p>
+<ul>
+<li>How many times does the past tense verb <em>said</em> occur in the Brown corpus?</li>
+<li>When <em>said</em> occurs with a full sentence, it often uses the complementizer <em>that</em>. How often does <em>said</em> occur with <em>that</em> immediately following? If we assume that all of these cases are actually the complementizer <em>that</em> (and not, e.g., the pronoun <em>that</em> as in ‘I never said that.’), what proportion of the time is <em>said</em> used with a complementizer?</li>
+<li>Sometimes, <em>said</em> can be used with the complementizer <em>that</em> but have other words intervening (e.g., ‘said yesterday that’ or ‘said very quietly that’). Modify your regular expression to allow for up to two words intervening between <em>said</em> and <em>that</em>. Now what proportion of the time are we estimating that <em>said</em> is used with a complementizer?</li>
+<li>Another common usage of <em>said</em> is with an embedded-question. We can get a rough estimate of the number of times <em>said</em> is used with embedded questions by explicitly searching for <em>said</em> occurring immediately prior to a question word (<em>what</em>, <em>who</em>, <em>when</em>, <em>where</em>, <em>how</em>, <em>why</em>, <em>which</em>). How many times is <em>said</em> used with each type of embedded question? What proportion of the time is it used with any of these types of embedded question?</li>
+</ul></li>
+</ol>
+</div>
+<div id="python" class="section level1">
+<h1>Python</h1>
+<ol start="4" style="list-style-type: decimal">
+<li><p><em>Basic python.</em> Create a python script called <code>problem4.py</code>. In this program, initialize a variable</p>
+<pre class="python"><code>sentence = &quot;isn't python so much fun?&quot;
+len(sentence)</code></pre>
+<p>Now, make the script print out each word from <code>sentence</code> on a separate line. (Hint: use the string’s <code>split()</code> method, a <code>for</code> loop, and the <code>print</code> statement.) Test your script by running <code>python problem4.py</code> to make sure it works.</p></li>
+<li><p><em>Regular expressions in python.</em> Create <code>problem5.py</code> in <code>ling334/hw1</code>. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called <code>browncaps.txt</code> in <code>ling334/hw1</code>. To verify that your script works, run it from the terminal and then look at <code>browncaps.txt</code> to verify its output.</p>
+<p>Important note: The first part of the path to the Brown corpus given above with the dollar sign (<code>$NLTK_DATA</code>) is a shell variable that python doesn’t have access to. Instead, you’ll need to specify the path to the Brown corpus like this:</p>
+<pre class="python"><code>import nltk
+brown_filename = nltk.data.path[0] + &quot;/corpora/brown/brown_all.txt&quot;</code></pre>
+<p>Now, <code>brown_filename</code> is a string that you can use as the path to the corpus when calling <code>open</code> to read the file.</p></li>
 </ol>
 </div>
 
