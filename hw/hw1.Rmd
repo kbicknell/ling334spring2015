@@ -5,18 +5,30 @@ date: "Due: April 14, 2015"
 output: html_document
 ---
 
-Note: Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.
+First, a few reminders:
 
-## Problem 0: setting up homework directories
-First, you'll create a `ling334` directory in your SSCC home directory and some subdirectories. Then you'll set the permission so that I have access to them. This is where you'll save your homework code that I will grade. To create these directions and set permissions, run the following commands (in order):
+* Make sure you have already followed the 'nltk setup' instructions linked on the course website.
+* Remember to list all others you worked with at the top of your assignment.
+* Remember that you must do your own write-up and your own programming.
 
-    mkdir ~/ling334
-    mkdir ~/ling334/hw1
-    mkdir ~/ling334/hw2
-    mkdir ~/ling334/hw3
-    mkdir ~/ling334/hw4
-    mkdir ~/ling334/project
-    chmod g=x $HOME
-    chmod -R g=rx ~/ling334
+# Linux
 
-## Problem 1
+0. _Setting up homework directories._ First, create a `ling334` directory in your SSCC home directory and some subdirectories:
+
+        mkdir ~/ling334
+        mkdir ~/ling334/hw1
+        mkdir ~/ling334/hw2
+        mkdir ~/ling334/hw3
+        mkdir ~/ling334/hw4
+        mkdir ~/ling334/project
+
+    This is where you'll save your homework code that I will grade. So that I have access, next, set the permissions as follows:
+
+        chmod g=x $HOME
+        chmod -R g=rx ~/ling334
+
+1. _Editing files._ Using `nano` (or your linux editor of choice like `emacs` or `vi`), create a file called `aboutme.txt` in your new `ling334` directory. In this file, answer the following questions about yourself:
+
+    * What is your linguistics background?
+    * What is your programming background?
+    * What is your probability theory background?
