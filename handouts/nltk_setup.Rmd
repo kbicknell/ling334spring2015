@@ -1,19 +1,25 @@
 ---
 title: 'Ling 334: Setting up `nltk`'
 author: 'Instructor: Klinton Bicknell'
-output: html_document
+output:
+  html_document:
+    highlight: pygments
 ---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(eval=FALSE)
+```
 
 This procedure will change your user configuration on the SSCC so that (a) python 2.7 instead of 2.6 is the default and (b) your python `nltk` module looks in my directory for the corpora we're using this quarter.
 
 1. Login to the SSCC and copy the following command (exactly) into your terminal window. (Copy and paste is recommended for all of these.)
-    ```
+    ```{r, engine='bash'}
     cat ~kob734/profile_for_334 >> ~/.bash_profile
     ```
 Then push enter. No output will be displayed. Now `logout` and then log in to the SSCC again so these changes will take effect.
 
 2. To verify that this selected the correct version of python, run the command
-    ```
+    ```{r, engine='bash'}
     python --version
     ```
 and verify that it says
@@ -22,12 +28,12 @@ and verify that it says
     ```
 
 3. To verify that `nltk` is looking in the right place for corpora, launch the python interpreter (by typing `python` and pushing enter) and then type the commands
-    ```
+    ```{r, engine='python'}
     from nltk.corpus import brown
     brown.words()
     ```
 and verify that the output shows:
-    ```
+    ```{r, engine='python'}
     [u'The', u'Fulton', u'County', u'Grand', u'Jury', ...]
     ```
 If it does, then everything is set up!
