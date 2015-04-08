@@ -23,7 +23,7 @@ and verify that it says
 
 3. To verify that `nltk` is looking in the right place for corpora, launch the python interpreter (by typing `python` and pushing enter) and then type the commands
     ```
-    from nltk.corpora import brown
+    from nltk.corpus import brown
     brown.words()
     ```
 and verify that the output shows:
