@@ -4,7 +4,7 @@ author: 'Instructor: Klinton Bicknell'
 output: html_document
 ---
 
-This procedure will change your user configuration on the SSCC so that (a) python 2.7 instead of 2.6 is the default and (b) your python looks in my directory for the corpora we're using this quarter.
+This procedure will change your user configuration on the SSCC so that (a) python 2.7 instead of 2.6 is the default and (b) your python `nltk` module looks in my directory for the corpora we're using this quarter.
 
 1. Login to the SSCC and copy the following command (exactly) into your terminal window. (Copy and paste is recommended for all of these.)
     ```
