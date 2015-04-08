@@ -2,8 +2,14 @@
 title: 'Ling 334: Homework 1'
 author: "Instructor: Klinton Bicknell"
 date: "Due: April 14, 2015"
-output: html_document
+output:
+  html_document:
+    highlight: pygments
 ---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(eval=FALSE)
+```
 
 # General
 
@@ -17,17 +23,21 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 0. _Setting up homework directories._ First, create a `ling334` directory in your SSCC home directory and some subdirectories:
 
-        mkdir ~/ling334
-        mkdir ~/ling334/hw1
-        mkdir ~/ling334/hw2
-        mkdir ~/ling334/hw3
-        mkdir ~/ling334/hw4
-        mkdir ~/ling334/project
+    ```{r, engine='bash'}
+    mkdir ~/ling334
+    mkdir ~/ling334/hw1
+    mkdir ~/ling334/hw2
+    mkdir ~/ling334/hw3
+    mkdir ~/ling334/hw4
+    mkdir ~/ling334/project
+    ```
 
     This is where you'll save your homework code that I will grade. So that I have access, next, set the permissions as follows:
 
-        chmod g=x $HOME
-        chmod -R g=rx ~/ling334
+    ```{r, engine='bash'}
+    chmod g=x $HOME
+    chmod -R g=rx ~/ling334
+    ```
 
 1. _Editing files._ Using `nano` (or your linux editor of choice like `emacs` or `vi`), create a file called `aboutme.txt` in your new `ling334` directory. In this file, answer the following questions about yourself:
 
@@ -39,16 +49,18 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 2. _Counting words._ In class, we used `egrep` to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn't ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we'll make use of the `-o` flag in `egrep` to return only the matched string:
 
-    egrep -o \<pattern\> \<filename\>
+    ```{r, engine='bash'}
+    egrep -o <pattern> <filename>
+    ```
 
     This will return each match on a separate line. As in class, we can pipe the output of `egrep` to `wc` to count the number of matches.
 
     Using this method, you'll count the number of times each of a list of words occurs in the Brown corpus. The full Brown corpus can be found in one file at `$NLTK_DATA/corpora/brown/brown_all.txt`. (`$NLTK_DATA` is a variable that was defined when you followed the class's nltk setup instructions.) Make sure your regular expressions:
-
-        * only count whole words ('she' should not be counted for the word 'he')
-        * ignore word-initial capitalization ('She' and 'she' should both be counted)
-        * count singular and plural variants when applicable ('bins' _does_ count for 'bin'}
-        
+    
+    * only count whole words ('she' should not be counted for the word 'he')
+    * ignore word-initial capitalization ('She' and 'she' should both be counted)
+    * count singular and plural variants when applicable ('bins' _does_ count for 'bin'}
+    
     You'll save your regular expressions and your results in a file called `problem2.txt` in your `ling334/hw1` directory. There should be one line of this file for each word in the list below. Each line should be formatted containing (a) the word, (b) a space, (c) your regular expression enclosed in slashes, (d) a space, and (e) the number of counts. For example, two (incorrect) lines could look as follows:
     
         cactus /[ca]ctus/ 131
@@ -100,7 +112,6 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
     ```{r, engine='python'}
     sentence = "isn't python so much fun?"
-    len(sentence)
     ```
 
     Now, make the script print out each word from `sentence` on a separate line. (Hint: use the string's `split()` method, a `for` loop, and the `print` statement.) Test your script by running `python problem4.py` to make sure it works.
