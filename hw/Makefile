@@ -1,9 +1,11 @@
-all: hw1.html
+hwbase=hw1
+hwhtml=$(addsuffix .html, $(hwbase))
+all : $(hwhtml)
 
-.PHONY: all clean
+.PHONY : all clean
 
-%.html : %.md
-	pandoc $^ -o $@
+%.html : %.Rmd
+	Rscript -e "require(rmarkdown); render('$<')"
 
-clean:
-	rm -f hw1.html
+clean :
+	rm -f $(hwhtml)
