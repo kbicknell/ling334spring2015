@@ -118,7 +118,7 @@ img {
 <ul>
 <li>only count whole words (‘she’ should not be counted for the word ‘he’)</li>
 <li>ignore word-initial capitalization (‘She’ and ‘she’ should both be counted)</li>
-<li>count singular and plural variants when applicable (‘bins’ <em>does</em> count for ‘bin’}</li>
+<li>count singular and plural variants of nouns (‘bins’ <em>does</em> count for ‘bin’, but no need to do this for pronouns)</li>
 </ul>
 <p>You’ll save your regular expressions and your results in a file called <code>problem2.txt</code> in your <code>ling334/hw1</code> directory. There should be one line of this file for each word in the list below. Each line should be formatted containing (a) the word, (b) a space, (c) your regular expression enclosed in slashes, (d) a space, and (e) the number of counts. For example, two (incorrect) lines could look as follows:</p>
 <pre><code>cactus /[ca]ctus/ 131

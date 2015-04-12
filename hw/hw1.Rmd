@@ -59,7 +59,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
     
     * only count whole words ('she' should not be counted for the word 'he')
     * ignore word-initial capitalization ('She' and 'she' should both be counted)
-    * count singular and plural variants when applicable ('bins' _does_ count for 'bin'}
+    * count singular and plural variants of nouns ('bins' _does_ count for 'bin', but no need to do this for pronouns)
     
     You'll save your regular expressions and your results in a file called `problem2.txt` in your `ling334/hw1` directory. There should be one line of this file for each word in the list below. Each line should be formatted containing (a) the word, (b) a space, (c) your regular expression enclosed in slashes, (d) a space, and (e) the number of counts. For example, two (incorrect) lines could look as follows:
     
