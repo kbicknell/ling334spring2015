@@ -95,8 +95,8 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 'say it ain't so') or an embedded question (as in 'say what you did' or 'say who you met'). Use `egrep` as in the previous problem to answer the following questions about _say_. Again, save each regular expression and the number of hits it gets in a file called `problem3.txt`. (Answer the other questions in your PDF.)
 
     * How many times does the past tense verb _said_ occur in the Brown corpus?
-    * When _said_ occurs with a full sentence, it often uses the complementizer _that_. How often does _said_ occur with _that_ immediately following? If we assume that all of these cases are actually the complementizer _that_ (and not, e.g., the pronoun _that_ as in 'I never said that.'), what proportion of the time is _said_ used with a complementizer?
-    * Sometimes, _said_ can be used with the complementizer _that_ but have other words intervening (e.g., 'said yesterday that' or 'said very quietly that'). Modify your regular expression to allow for (but not require) up to two words to intervene between _said_ and _that_. Now what proportion of the time are we estimating that _said_ is used with a complementizer?
+    * When _said_ occurs with a full sentence, it often uses the complementizer _that_. How often does _said_ occur with _that_ immediately following? If we assume that all of these cases are actually the complementizer _that_ (and not, e.g., the pronoun _that_ as in 'I never said that.'), what proportion of the time is _said_ used with the complementizer _that_?
+    * Sometimes, _said_ can be used with the complementizer _that_ but have other words intervening (e.g., 'said yesterday that' or 'said very quietly that'). Modify your regular expression to allow for (but not require) up to two words to intervene between _said_ and _that_. Now what proportion of the time are we estimating that _said_ is used with the complementizer _that_?
     * Another common usage of _said_ is with an
   embedded-question. We can get a rough estimate of the number of
   times _said_ is used with embedded questions by explicitly
