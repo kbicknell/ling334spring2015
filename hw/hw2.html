@@ -83,11 +83,20 @@ img {
 <div id="unigram-model" class="section level2">
 <h2>Unigram model</h2>
 <ol style="list-style-type: decimal">
-<li><p><em>Creating the <code>word_to_index</code> dictionary</em> [Coding only: save as <code>problem1.py</code>]</p>
+<li><p><em>Creating the <code>word_to_index</code> dictionary</em> [Coding only: save code as <code>problem1.py</code>]</p>
 <p>The first step in building an <span class="math">\(n\)</span>-gram model is to create a dictionary that maps words to indices (which we’ll use to access the elements corresponding to that word in a vector or matrix of counts or probabilities). You’ll create this dictionary from a vocabulary file that lists each word in the corpus exactly once:</p>
 <pre class="sourceCode python"><code class="sourceCode python">nltk.data.path[<span class="dv">0</span>] + <span class="st">'/corpora/brown/brown_vocab_100.txt'</span></code></pre>
 <p>This file lists the 813 word types used in the first 100 sentences of the Brown corpus and contains one word per line. We want to create a dictionary in python that maps each word to its order of occurrence in this file, starting with 0. For example, the first word in the file is ‘all’ and this should map to 0. The last word is ‘resolution’ and this should map to 812. To create the dictionary in python, you’ll iterate over each line (which is a word plus a newline character), use <code class="sourceCode python">rstrip()</code> to remove the trailing newline character, and then add the word to the dictionary mapped to its appropriate index. To do this, you’ll need to keep track of which line of the file you’re in using <code class="sourceCode python"><span class="dt">enumerate</span>()</code>.</p>
 <p>After creating this dictionary, write the dictionary to a file called <code>word_to_index_100.txt</code>. Because <code class="sourceCode python">wf.write()</code> only writes strings, you will need to convert the dictionary to a string before you can write it using the <code class="sourceCode python"><span class="dt">str</span>()</code> function. To check that you’ve done this correctly, verify in the file output that ‘all’ is mapped to 0 and ‘resolution’ to 812.</p></li>
+<li><p><em>Building an MLE unigram model</em> [Coding and written answer: save code as <code>problem2.py</code>]</p>
+<p>Now you’ll build a simple MLE unigram model from the first 100 sentences in the Brown corpus, found here:</p>
+<pre><code>/sscc/home/k/kob734/nltk_data/corpora/brown/brown_100.txt</code></pre>
+<p>This corpus is represented as one sentence per line with a space separating all words. You’ll need to split the sentences into a list of words (e.g., using the string’s <code class="sourceCode python">.split()</code> member function), convert each word to lowercase (e.g., using the string’s <code class="sourceCode python">.lower()</code> member function) and add the end-of-sentence word `</s>’.</p>
+<p>First, copy your code from problem 1 to load the dictionary mapping words to indices. Then <code class="sourceCode python"><span class="ch">import</span> numpy <span class="ch">as</span> np</code> and initialize the numpy vector of counts with zeros. Finally, iterate through the sentences and increment counts for each of the words they contain.</p>
+<p>Now print the counts vector. (Do this in the python interpreter. Don’t add this printing to your script.) <em>Q: About how many of the words occurred only once in the corpus. Do you think the proportion of words that occur only once would be higher or lower if we used a larger corpus (e.g., all 57000 sentences in Brown)?</em></p>
+<p>Finally, to normalize your counts vector and create probabilities, you can simply divide the counts vector by its sum in numpy like so:</p>
+<pre class="sourceCode python"><code class="sourceCode python">probs = counts / np.<span class="dt">sum</span>(counts)</code></pre>
+<p>Write your new probs vector to a file called <code>unigram_probs.txt</code> and verify that the first probability in it (the probability of ‘all’) is 0.0004223 and that the last probability (probability of ‘resolution’) is 0.00380068. (Note that our model trained on this small corpus has estimated that ‘resolution’ is about 10 times as frequent as ‘all’! Models trained on very small corpora are very noisy.)</p></li>
 </ol>
 </div>
 
