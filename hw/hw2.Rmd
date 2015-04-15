@@ -1,0 +1,25 @@
+---
+title: 'Ling 334: Homework 2'
+author: 'Instructor: Klinton Bicknell'
+date: "Due: April 28, 2015"
+output:
+  html_document:
+    highlight: pygments
+---
+
+_Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your code will be 'turned in' by putting it in the `~/ling334/hw2/` folder, and running the command `chmod -R g+r ~/ling334/hw2/`{.bash} on the SSCC when you've finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.
+
+For this assignment, we'll develop $n$-gram models using only a small part of the Brown corpus, to make it easier to find bugs and understand what's going on. The methods that you've learned at this point cannot be naively applied to very large datasets, so **please do not try to run any of these models on the full Brown corpus. It might crash the server for everyone.**
+
+## Unigram model
+
+1. _Creating the `word_to_index` dictionary_ [Coding only: save as `problem1.py`]
+  
+    The first step in building an $n$-gram model is to create a dictionary that maps words to indices (which we'll use to access the elements corresponding to that word in a vector or matrix of counts or probabilities). You'll create this dictionary from a vocabulary file that lists each word in the corpus exactly once:
+    ```python
+    nltk.data.path[0] + '/corpora/brown/brown_vocab_100.txt'
+    ```
+    This file lists the 813 word types used in the first 100 sentences of the Brown corpus and contains one word per line. We want to create a dictionary in python that maps each word to its order of occurrence in this file, starting with 0. For example, the first word in the file is 'all' and this should map to 0. The last word is 'resolution' and this should map to 812. To create the dictionary in python, you'll
+iterate over each line (which is a word plus a newline character), use `rstrip()`{.python} to remove the trailing newline character, and then add the word to the dictionary mapped to its appropriate index. To do this, you'll need to keep track of which line of the file you're in using `enumerate()`{.python}.
+
+    After creating this dictionary, write the dictionary to a file called `word_to_index_100.txt`. Because `wf.write()`{.python} only writes strings, you will need to convert the dictionary to a string before you can write it using the `str()`{.python} function. To check that you've done this correctly, verify in the file output that 'all' is mapped to 0 and 'resolution' to 812.
