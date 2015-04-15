@@ -11,13 +11,13 @@ output:
 knitr::opts_chunk$set(eval=FALSE)
 ```
 
+_Turning it in._ In general, homework assignments in this class will involve both short answers and coding. You'll turn in your short answers in PDF form via Canvas. But your code will be 'turned in' by putting it in the `~/ling334/hw1` folder, which you'll create in problem 0, and running the command `chmod -R g+r ~/ling334/hw1` on the SSCC when you've finished.
+
 # General
 
 * Make sure you have already followed the 'nltk setup' instructions linked on the course website.
 * Remember to list all others you worked with at the top of your assignment.
 * Remember that you must do your own write-up and your own programming.
-
-_Turning it in._ In general, homework assignments in this class will involve both short answers and coding. You'll turn in your short answers in PDF form via Canvas. But your code will be 'turned in' by putting it in the `~/ling334/hw1` folder, which you'll create in problem 0, and running the command `chmod -R g+r ~/ling334/hw1` on the SSCC when you've finished.
 
 # Linux
 
