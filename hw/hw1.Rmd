@@ -7,11 +7,7 @@ output:
     highlight: pygments
 ---
 
-```{r setup, echo=FALSE}
-knitr::opts_chunk$set(eval=FALSE)
-```
-
-_Turning it in._ In general, homework assignments in this class will involve both short answers and coding. You'll turn in your short answers in PDF form via Canvas. But your code will be 'turned in' by putting it in the `~/ling334/hw1` folder, which you'll create in problem 0, and running the command `chmod -R g+r ~/ling334/hw1` on the SSCC when you've finished.
+_Turning it in._ In general, homework assignments in this class will involve both short answers and coding. You'll turn in your short answers in PDF form via Canvas. But your code will be 'turned in' by putting it in the `~/ling334/hw1/` folder, which you'll create in problem 0, and running the command `chmod -R g+r ~/ling334/hw1/`{.bash} on the SSCC when you've finished.
 
 # General
 
@@ -23,7 +19,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 0. _Setting up homework directories._ First, create a `ling334` directory in your SSCC home directory and some subdirectories:
 
-    ```{r, engine='bash'}
+    ```bash
     mkdir ~/ling334
     mkdir ~/ling334/hw1
     mkdir ~/ling334/hw2
@@ -34,12 +30,12 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
     This is where you'll save your homework code that I will grade. So that I have access, next, set the permissions as follows:
 
-    ```{r, engine='bash'}
+    ```bash
     chmod g=x $HOME
     chmod -R g=rx ~/ling334
     ```
 
-1. _Editing files._ Using `nano` (or your linux editor of choice like `emacs` or `vi`), create a file called `aboutme.txt` in your new `ling334/hw1` directory. In this file, answer the following questions about yourself:
+1. _Editing files._ Using `nano`{.bash} (or your linux editor of choice like `emacs`{.bash} or `vi`{.bash}), create a file called `aboutme.txt` in your new `ling334/hw1/` directory. In this file, answer the following questions about yourself:
 
     * What is your linguistics background?
     * What is your programming background?
@@ -47,15 +43,15 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 # Regular expressions
 
-2. _Counting words._ In class, we used `egrep` to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn't ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we'll make use of the `-o` flag in `egrep` to return only the matched string:
+2. _Counting words._ In class, we used `egrep`{.bash} to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn't ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we'll make use of the `-o` flag in `egrep`{.bash} to return only the matched string:
 
-    ```{r, engine='bash'}
+    ```bash
     egrep -o <pattern> <filename>
     ```
 
-    This will return each match on a separate line. As in class, we can pipe the output of `egrep` to `wc` to count the number of matches.
+    This will return each match on a separate line. As in class, we can pipe the output of `egrep`{.bash} to `wc`{.bash} to count the number of matches.
 
-    Using this method, you'll count the number of times each of a list of words occurs in the Brown corpus. The full Brown corpus can be found in one file at `$NLTK_DATA/corpora/brown/brown_all.txt`. (`$NLTK_DATA` is a variable that was defined when you followed the class's nltk setup instructions.) Make sure your regular expressions:
+    Using this method, you'll count the number of times each of a list of words occurs in the Brown corpus. The full Brown corpus can be found in one file at `$NLTK_DATA/corpora/brown/brown_all.txt`{.bash}. (`$NLTK_DATA`{.bash} is a variable that was defined when you followed the class's nltk setup instructions.) Make sure your regular expressions:
     
     * only count whole words ('she' should not be counted for the word 'he')
     * ignore word-initial capitalization ('She' and 'she' should both be counted)
@@ -110,26 +106,20 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 4. _Basic python._ Create a python script called `problem4.py`. In this program, initialize a variable
 
-    ```{r, engine='python'}
+    ```python
     sentence = "isn't python so much fun?"
     ```
 
-    Now, make the script print out each word from `sentence` on a separate line. (Hint: use the string's `split()` method, a `for` loop, and the `print` statement.) Test your script by running `python problem4.py` to make sure it works.
+    Now, make the script print out each word from `sentence` on a separate line. (Hint: use the string's `split()`{.python} method, a `for`{.python} loop, and the `print`{.python} statement.) Test your script by running `python problem4.py`{.bash} to make sure it works.
 
-5. _Regular expressions in python._ Create `problem5.py` in `ling334/hw1`. Have the script
-go through each line of the brown corpus (the single file mentioned
-above), check whether each line contains at least 3 capitalized words
-(using a single regular expression), and write those lines that do to a file
-called `browncaps.txt` in `ling334/hw1`. To verify that your script works, run it from the terminal
-and then look at `browncaps.txt` to verify its output.
+5. _Regular expressions in python._ Create `problem5.py` in `ling334/hw1/`. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called `browncaps.txt` in `ling334/hw1/`. To verify that your script works, run it from the terminal and then look at `browncaps.txt` to verify its output.
 
-    Important note: The first part of the path to the Brown corpus given
-above with the dollar sign (`$NLTK_DATA`) is a shell variable that
-python doesn't have access to. Instead, you'll need to specify the path to the Brown corpus like this:
+    Important note: The first part of the path to the Brown corpus given above with the dollar sign (`$NLTK_DATA`{.bash}) is a shell variable that python doesn't have access to. Instead, you'll need to specify the path to the Brown corpus like this:
     
-    ```{r, engine='python'}
+    ```python
     import nltk
     brown_filename = nltk.data.path[0] + "/corpora/brown/brown_all.txt"
     ```
 
-    Now, `brown_filename` is a string that you can use as the path to the corpus when calling `open` to read the file.
+    Now, `brown_filename`{.python} is a string that you can use as the path to the corpus when calling `open`{.python} to read the file.
+    
