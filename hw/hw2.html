@@ -99,6 +99,28 @@ img {
 <p>Write your new probs vector to a file called <code>unigram_probs.txt</code> and verify that the first probability in it (the probability of ‘all’) is 0.0004223 and that the last probability (probability of ‘resolution’) is 0.00380068. (Note that our model trained on this small corpus has estimated that ‘resolution’ is about 10 times as frequent as ‘all’! Models trained on very small corpora are very noisy.)</p></li>
 </ol>
 </div>
+<div id="bigram-models" class="section level2">
+<h2>Bigram models</h2>
+<ol start="3" style="list-style-type: decimal">
+<li><p><em>Building an MLE bigram model</em> [Coding only: save code as <code>problem3.py</code>]</p>
+Now, you’ll create an MLE bigram model, in much the same way as you created an MLE unigram model. I recommend writing the code again from scratch, however, (except for the code initializing the mapping dictionary), so that you can test things as you go. The main differences between coding an MLE bigram model and a unigram model are:
+<ul>
+<li>you’ll initialize a numpy matrix instead of a numpy vector</li>
+<li>you’ll increment counts for a combination of word and previous word. This means you’ll need to keep track of what the previous word was. I recommend doing this by (1) initializing <code class="sourceCode python">previous_word = <span class="st">'&lt;s&gt;'</span></code> just prior to the <code class="sourceCode python"><span class="kw">for</span></code> loop iterating through a line, and then (2) inside the <code class="sourceCode python"><span class="kw">for</span></code> loop, adding a line that sets <code class="sourceCode python">previous_word = word</code> <em>after</em> incrementing the counts for the current <code>previous_word, word</code> pair. Think this through to make sure you understand why this ensures that the variable <code>previous_word</code> will always be the appropriate previous word when incrementing counts.</li>
+<li><p>you’ll now normalize each row of the counts matrix instead of just normalizing a single counts vector. To do that, replace the line involving <code class="sourceCode python">np.<span class="dt">sum</span>()</code> with the lines</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> sklearn.preprocessing <span class="ch">import</span> normalize
+probs = normalize(counts, norm=<span class="st">'l1'</span>, axis=<span class="dv">1</span>)</code></pre></li>
+</ul>
+When complete, add code to write the following probabilities to <code>bigram_probs.txt</code>, one per line:
+<ul>
+<li><span class="math">\(p(\mbox{the} | \mbox{all})\)</span></li>
+<li><span class="math">\(p(\mbox{jury} | \mbox{the})\)</span></li>
+<li><span class="math">\(p(\mbox{campaign} | \mbox{the})\)</span></li>
+<li><span class="math">\(p(\mbox{calls} | \mbox{anonymous})\)</span></li>
+</ul>
+<p>Make sure that the first two of these probabilities are 1.0 and about .08333.</p></li>
+</ol>
+</div>
 
 
 </div>

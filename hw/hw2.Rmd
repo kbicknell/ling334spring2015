@@ -42,3 +42,24 @@ iterate over each line (which is a word plus a newline character), use `rstrip()
     ```
     Write your new probs vector to a file called `unigram_probs.txt` and verify that the first probability in it (the probability of 'all') is 0.0004223 and that the last probability (probability of 'resolution') is 0.00380068. (Note that our model trained on this small corpus has estimated that 'resolution'
 is about 10 times as frequent as 'all'! Models trained on very small corpora are very noisy.)
+
+## Bigram models
+
+3. _Building an MLE bigram model_ [Coding only: save code as `problem3.py`]
+
+    Now, you'll create an MLE bigram model, in much the same way as you created an MLE unigram model. I recommend writing the code again from scratch, however, (except for the code initializing the mapping dictionary), so that you can test things as you go. The main differences between coding an MLE bigram model and a unigram model are:
+    * you'll initialize a numpy matrix instead of a numpy vector
+    * you'll increment counts for a combination of word and previous word. This means you'll need to keep track of what the previous word was. I recommend doing this by (1) initializing `previous_word = '<s>'`{.python} just prior to the `for`{.python} loop iterating through a line, and then (2) inside the `for`{.python} loop, adding a line that sets `previous_word = word`{.python} _after_ incrementing the counts for the current `previous_word, word` pair. Think this through to make sure you understand why this ensures that the variable `previous_word` will always be the appropriate previous word when incrementing counts.
+    * you'll now normalize each row of the counts matrix instead of just normalizing a single counts vector. To do that, replace the line involving `np.sum()`{.python} with the lines
+    ```python
+    from sklearn.preprocessing import normalize
+    probs = normalize(counts, norm='l1', axis=1)
+    ```
+
+    When complete, add code to write the following probabilities to `bigram_probs.txt`, one per line:
+    * $p(\mbox{the} | \mbox{all})$
+    * $p(\mbox{jury} | \mbox{the})$
+    * $p(\mbox{campaign} | \mbox{the})$
+    * $p(\mbox{calls} |  \mbox{anonymous})$
+    
+    Make sure that the first two of these probabilities are 1.0 and about .08333.
