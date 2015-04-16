@@ -75,3 +75,24 @@ is about 10 times as frequent as 'all'! Models trained on very small corpora are
     Now also change the program to write the same four probabilities as before to a file called `smooth_probs.txt`. To verify that your program is working correctly, check that the first probability in the file is about 0.0133657.
 
     Finally, compare `smooth_probs.txt` to `bigram_probs.txt`. _Q: Why did all four probabilities go down in the smoothed model?_ Now note that the probabilities did not all decrease by the same amount. In particular, the two probabilities conditioned on 'the' dropped only slightly, while the other two probabilities (conditioned on 'all' and 'anonymous') dropped rather dramatically._Q: Why did add-$\delta$ smoothing cause probabilities conditioned on 'the' to fall much less than these others? And why is behavior a good thing?_ In figuring this out, you may find it useful to look at the relevant individual rows of the counts matrix (prior to adding the 0.1) to see how they're different. In numpy, you can look at $n$th row of the `counts` matrix using `counts[n,]`.
+
+## Using $n$-gram models
+
+5. **Calculating sentence probabilities** [Coding and written answer]
+
+    For this problem, you will use each of the three models you've constructed in problems 2--4 to
+evaluate the probability of a toy corpus of sentences (containing just two sentences) found at
+    ```python
+    nltk.data.path[0] + '/corpora/brown/toy_corpus.txt'
+    ```
+    The sentences are contained in this corpus in the same format as the other corpora you've been using so far: one sentence per line and words separated by a space. As before, you'll need to remove the end-of-line character and add the end-of-sentence word.
+
+    First, you'll edit `problem2.py`, and add code at the bottom of the script to iterate through each sentence in the toy corpus and calculate the joint probability of all the words in the sentence under the unigram model. Then write the probability of each sentence to a file `unigram_eval.txt`, one per line. To do this, you'll be writing a loop within a loop very similarly to how you iterated through the training corpus to estimate the model parameters. But instead of incrementing counts after each word, you'll be updating the joint probability of the sentence (multiplying the probabilities of each word together). One easy way to do this is to initialize `sentprob = 1`{.python} prior to looping through the words in the sentence, and then just update `sentprob *= wordprob`{.python} with the probability of each word. At the end of the loop, `sentprob`{.python} will contain the total joint probability of the whole sentence. To verify that this worked correctly, note that the joint probability of the first sentence under this model should be 6.97407549402e-21.
+
+    Next, you'll transform this joint probability into a perplexity, and write that to the file instead. To calculate the perplexity, first calculate the length of the sentence (be sure to include the end-of-sentence word) and store that in a variable `sent_len`{.python}, and then you can calculate `perplexity = 1/(pow(joint_prob, 1.0/sent_len))`{.python}, which reproduces the definition of perplexity we discussed in class. Now, write the perplexity of each sentence to the output file instead of the joint probabilities. To verify that you've done this correctly, note that the perplexity of the first sentence with this model should be about 173.6.
+
+    Now, you'll do the same thing for your other two models. Add code to `problem3.py` to calculate the perplexities of each sentence in the toy corpus and write that to a file `bigram_eval.txt`. Similarly, add code to `problem4.py` and write the perplexities under the smoothed model to `smoothed_eval.txt`. To verify that you did these correctly, note that the perplexity of the first sentence should be about 5.8
+with the MLE bigram model and about 45.6 for the smoothed bigram model.
+
+    Compare the perplexities of these two sentences under all three models. _Q: Which model performed worst and why might you have expected that model to have performed worst?_ Note the large
+difference in perplexities between the MLE and smoothed bigram models. _Q: Did smoothing help or hurt the model's 'performance' when evaluated on this corpus? Why might that be?_
