@@ -83,12 +83,12 @@ img {
 <div id="unigram-model" class="section level2">
 <h2>Unigram model</h2>
 <ol style="list-style-type: decimal">
-<li><p><em>Creating the <code>word_to_index</code> dictionary</em> [Coding only: save code as <code>problem1.py</code>]</p>
+<li><p><strong>Creating the <code>word_to_index</code> dictionary</strong> [Coding only: save code as <code>problem1.py</code>]</p>
 <p>The first step in building an <span class="math">\(n\)</span>-gram model is to create a dictionary that maps words to indices (which we’ll use to access the elements corresponding to that word in a vector or matrix of counts or probabilities). You’ll create this dictionary from a vocabulary file that lists each word in the corpus exactly once:</p>
 <pre class="sourceCode python"><code class="sourceCode python">nltk.data.path[<span class="dv">0</span>] + <span class="st">'/corpora/brown/brown_vocab_100.txt'</span></code></pre>
 <p>This file lists the 813 word types used in the first 100 sentences of the Brown corpus and contains one word per line. We want to create a dictionary in python that maps each word to its order of occurrence in this file, starting with 0. For example, the first word in the file is ‘all’ and this should map to 0. The last word is ‘resolution’ and this should map to 812. To create the dictionary in python, you’ll iterate over each line (which is a word plus a newline character), use <code class="sourceCode python">rstrip()</code> to remove the trailing newline character, and then add the word to the dictionary mapped to its appropriate index. To do this, you’ll need to keep track of which line of the file you’re in using <code class="sourceCode python"><span class="dt">enumerate</span>()</code>.</p>
 <p>After creating this dictionary, write the dictionary to a file called <code>word_to_index_100.txt</code>. Because <code class="sourceCode python">wf.write()</code> only writes strings, you will need to convert the dictionary to a string before you can write it using the <code class="sourceCode python"><span class="dt">str</span>()</code> function. To check that you’ve done this correctly, verify in the file output that ‘all’ is mapped to 0 and ‘resolution’ to 812.</p></li>
-<li><p><em>Building an MLE unigram model</em> [Coding and written answer: save code as <code>problem2.py</code>]</p>
+<li><p><strong>Building an MLE unigram model</strong> [Coding and written answer: save code as <code>problem2.py</code>]</p>
 <p>Now you’ll build a simple MLE unigram model from the first 100 sentences in the Brown corpus, found here:</p>
 <pre><code>/sscc/home/k/kob734/nltk_data/corpora/brown/brown_100.txt</code></pre>
 <p>This corpus is represented as one sentence per line with a space separating all words. You’ll need to split the sentences into a list of words (e.g., using the string’s <code class="sourceCode python">.split()</code> member function), convert each word to lowercase (e.g., using the string’s <code class="sourceCode python">.lower()</code> member function) and add the end-of-sentence word `</s>’.</p>
@@ -102,7 +102,7 @@ img {
 <div id="bigram-models" class="section level2">
 <h2>Bigram models</h2>
 <ol start="3" style="list-style-type: decimal">
-<li><p><em>Building an MLE bigram model</em> [Coding only: save code as <code>problem3.py</code>]</p>
+<li><p><strong>Building an MLE bigram model</strong> [Coding only: save code as <code>problem3.py</code>]</p>
 Now, you’ll create an MLE bigram model, in much the same way as you created an MLE unigram model. I recommend writing the code again from scratch, however, (except for the code initializing the mapping dictionary), so that you can test things as you go. The main differences between coding an MLE bigram model and a unigram model are:
 <ul>
 <li>you’ll initialize a numpy matrix instead of a numpy vector</li>
@@ -119,6 +119,12 @@ When complete, add code to write the following probabilities to <code>bigram_pro
 <li><span class="math">\(p(\mbox{calls} | \mbox{anonymous})\)</span></li>
 </ul>
 <p>Make sure that the first two of these probabilities are 1.0 and about .08333.</p></li>
+<li><p><strong>Add-<span class="math">\(\delta\)</span> smoothing the bigram model</strong> [Coding and written answer: save code as <code>problem4.py</code>]</p>
+<p>This time, copy <code>problem3.py</code> to <code>problem4.py</code>. We’ll just be making a very small modification to the program to add smoothing. In class, we discussed two types of smoothing in detail: Laplace smoothing, in which 1 <em>pseudocount</em> is added to every bigram count, and add-<span class="math">\(\delta\)</span> smoothing, in which some amount <span class="math">\(\delta\)</span> is added to every bigram count. (Laplace smoothing is thus a special case of add-<span class="math">\(\delta\)</span> smoothing.)</p>
+<p>You should modify your problem to use add-<span class="math">\(\delta\)</span> smoothing with <span class="math">\(\delta=0.1\)</span>, i.e., pretending that we saw an extra one-tenth of an instance of each bigram. With numpy, you can very simply add 0.1 to every cell of a matrix like so:</p>
+<pre class="sourceCode python"><code class="sourceCode python">counts += <span class="fl">0.1</span></code></pre>
+<p>Now also change the program to write the same four probabilities as before to a file called <code>smooth_probs.txt</code>. To verify that your program is working correctly, check that the first probability in the file is about 0.0133657.</p>
+<p>Finally, compare <code>smooth_probs.txt</code> to <code>bigram_probs.txt</code>. <em>Q: Why did all four probabilities go down in the smoothed model?</em> Now note that the probabilities did not all decrease by the same amount. In particular, the two probabilities conditioned on ‘the’ dropped only slightly, while the other two probabilities (conditioned on ‘all’ and ‘anonymous’) dropped rather dramatically.<em>Q: Why did add-<span class="math">\(\delta\)</span> smoothing cause probabilities conditioned on ‘the’ to fall much less than these others? And why is behavior a good thing?</em> In figuring this out, you may find it useful to look at the relevant individual rows of the counts matrix (prior to adding the 0.1) to see how they’re different. In numpy, you can look at <span class="math">\(n\)</span>th row of the <code>counts</code> matrix using <code>counts[n,]</code>.</p></li>
 </ol>
 </div>
 

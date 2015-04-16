@@ -13,7 +13,7 @@ For this assignment, we'll develop $n$-gram models using only a small part of th
 
 ## Unigram model
 
-1. _Creating the `word_to_index` dictionary_ [Coding only: save code as `problem1.py`]
+1. **Creating the `word_to_index` dictionary** [Coding only: save code as `problem1.py`]
   
     The first step in building an $n$-gram model is to create a dictionary that maps words to indices (which we'll use to access the elements corresponding to that word in a vector or matrix of counts or probabilities). You'll create this dictionary from a vocabulary file that lists each word in the corpus exactly once:
     ```python
@@ -24,7 +24,7 @@ iterate over each line (which is a word plus a newline character), use `rstrip()
 
     After creating this dictionary, write the dictionary to a file called `word_to_index_100.txt`. Because `wf.write()`{.python} only writes strings, you will need to convert the dictionary to a string before you can write it using the `str()`{.python} function. To check that you've done this correctly, verify in the file output that 'all' is mapped to 0 and 'resolution' to 812.
 
-2. _Building an MLE unigram model_ [Coding and written answer: save code as `problem2.py`]
+2. **Building an MLE unigram model** [Coding and written answer: save code as `problem2.py`]
 
     Now you'll build a simple MLE unigram model from the first 100 sentences in the Brown corpus, found here:
     ```
@@ -45,7 +45,7 @@ is about 10 times as frequent as 'all'! Models trained on very small corpora are
 
 ## Bigram models
 
-3. _Building an MLE bigram model_ [Coding only: save code as `problem3.py`]
+3. **Building an MLE bigram model** [Coding only: save code as `problem3.py`]
 
     Now, you'll create an MLE bigram model, in much the same way as you created an MLE unigram model. I recommend writing the code again from scratch, however, (except for the code initializing the mapping dictionary), so that you can test things as you go. The main differences between coding an MLE bigram model and a unigram model are:
     * you'll initialize a numpy matrix instead of a numpy vector
@@ -63,3 +63,15 @@ is about 10 times as frequent as 'all'! Models trained on very small corpora are
     * $p(\mbox{calls} |  \mbox{anonymous})$
     
     Make sure that the first two of these probabilities are 1.0 and about .08333.
+
+4. **Add-$\delta$ smoothing the bigram model** [Coding and written answer: save code as `problem4.py`]
+
+    This time, copy `problem3.py` to `problem4.py`. We'll just be making a very small modification to the program to add smoothing. In class, we discussed two types of smoothing in detail: Laplace smoothing, in which 1 _pseudocount_ is added to every bigram count, and add-$\delta$ smoothing, in which some amount $\delta$ is added to every bigram count. (Laplace smoothing is thus a special case of add-$\delta$ smoothing.)
+
+    You should modify your problem to use add-$\delta$ smoothing with $\delta=0.1$, i.e., pretending that we saw an extra one-tenth of an instance of each bigram. With numpy, you can very simply add 0.1 to every cell of a matrix like so:
+    ```python
+    counts += 0.1
+    ```
+    Now also change the program to write the same four probabilities as before to a file called `smooth_probs.txt`. To verify that your program is working correctly, check that the first probability in the file is about 0.0133657.
+
+    Finally, compare `smooth_probs.txt` to `bigram_probs.txt`. _Q: Why did all four probabilities go down in the smoothed model?_ Now note that the probabilities did not all decrease by the same amount. In particular, the two probabilities conditioned on 'the' dropped only slightly, while the other two probabilities (conditioned on 'all' and 'anonymous') dropped rather dramatically._Q: Why did add-$\delta$ smoothing cause probabilities conditioned on 'the' to fall much less than these others? And why is behavior a good thing?_ In figuring this out, you may find it useful to look at the relevant individual rows of the counts matrix (prior to adding the 0.1) to see how they're different. In numpy, you can look at $n$th row of the `counts` matrix using `counts[n,]`.
