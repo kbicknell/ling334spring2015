@@ -17,7 +17,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 # Linux
 
-0. _Setting up homework directories._ First, create a `ling334` directory in your SSCC home directory and some subdirectories:
+0. **Setting up homework directories.** First, create a `ling334` directory in your SSCC home directory and some subdirectories:
 
     ```bash
     mkdir ~/ling334
@@ -35,7 +35,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
     chmod -R g=rx ~/ling334
     ```
 
-1. _Editing files._ Using `nano`{.bash} (or your linux editor of choice like `emacs`{.bash} or `vi`{.bash}), create a file called `aboutme.txt` in your new `ling334/hw1/` directory. In this file, answer the following questions about yourself:
+1. **Editing files.** Using `nano`{.bash} (or your linux editor of choice like `emacs`{.bash} or `vi`{.bash}), create a file called `aboutme.txt` in your new `ling334/hw1/` directory. In this file, answer the following questions about yourself:
 
     * What is your linguistics background?
     * What is your programming background?
@@ -43,7 +43,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 # Regular expressions
 
-2. _Counting words._ In class, we used `egrep`{.bash} to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn't ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we'll make use of the `-o` flag in `egrep`{.bash} to return only the matched string:
+2. **Counting words.** In class, we used `egrep`{.bash} to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn't ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we'll make use of the `-o` flag in `egrep`{.bash} to return only the matched string:
 
     ```bash
     egrep -o <pattern> <filename>
@@ -87,7 +87,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
     Finally, short answer questions to include in your PDF write up: What general correlation do you see in the counts? What words are examples that break this pattern? Test a few and note whether they do indeed break the pattern. Speculate about why this correlation might emerge in a language system.
 
-3. _Say what?_ In English, the verb _say_ can appear with a full sentence (as in
+3. **Say what?** In English, the verb _say_ can appear with a full sentence (as in
 'say it ain't so') or an embedded question (as in 'say what you did' or 'say who you met'). Use `egrep` as in the previous problem to answer the following questions about _say_. Again, save each regular expression and the number of hits it gets in a file called `problem3.txt`. (Answer the other questions in your PDF.)
 
     * How many times does the past tense verb _said_ occur in the Brown corpus?
@@ -104,7 +104,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
 # Python
 
-4. _Basic python._ Create a python script called `problem4.py`. In this program, initialize a variable
+4. **Basic python.** Create a python script called `problem4.py`. In this program, initialize a variable
 
     ```python
     sentence = "isn't python so much fun?"
@@ -112,7 +112,7 @@ _Turning it in._ In general, homework assignments in this class will involve bot
 
     Now, make the script print out each word from `sentence` on a separate line. (Hint: use the string's `split()`{.python} method, a `for`{.python} loop, and the `print`{.python} statement.) Test your script by running `python problem4.py`{.bash} to make sure it works.
 
-5. _Regular expressions in python._ Create `problem5.py` in `ling334/hw1/`. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called `browncaps.txt` in `ling334/hw1/`. To verify that your script works, run it from the terminal and then look at `browncaps.txt` to verify its output.
+5. **Regular expressions in python.** Create `problem5.py` in `ling334/hw1/`. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called `browncaps.txt` in `ling334/hw1/`. To verify that your script works, run it from the terminal and then look at `browncaps.txt` to verify its output.
 
     Important note: The first part of the path to the Brown corpus given above with the dollar sign (`$NLTK_DATA`{.bash}) is a shell variable that python doesn't have access to. Instead, you'll need to specify the path to the Brown corpus like this:
     

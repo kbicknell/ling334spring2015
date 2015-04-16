@@ -90,7 +90,7 @@ img {
 <div id="linux" class="section level1">
 <h1>Linux</h1>
 <ol start="0" style="list-style-type: decimal">
-<li><p><em>Setting up homework directories.</em> First, create a <code>ling334</code> directory in your SSCC home directory and some subdirectories:</p>
+<li><p><strong>Setting up homework directories.</strong> First, create a <code>ling334</code> directory in your SSCC home directory and some subdirectories:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> ~/ling334
 <span class="kw">mkdir</span> ~/ling334/hw1
 <span class="kw">mkdir</span> ~/ling334/hw2
@@ -100,7 +100,7 @@ img {
 <p>This is where you’ll save your homework code that I will grade. So that I have access, next, set the permissions as follows:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">chmod</span> g=x <span class="ot">$HOME</span>
 <span class="kw">chmod</span> -R g=rx ~/ling334</code></pre></li>
-<li><p><em>Editing files.</em> Using <code class="sourceCode bash"><span class="kw">nano</span></code> (or your linux editor of choice like <code class="sourceCode bash"><span class="kw">emacs</span></code> or <code class="sourceCode bash"><span class="kw">vi</span></code>), create a file called <code>aboutme.txt</code> in your new <code>ling334/hw1/</code> directory. In this file, answer the following questions about yourself:</p>
+<li><p><strong>Editing files.</strong> Using <code class="sourceCode bash"><span class="kw">nano</span></code> (or your linux editor of choice like <code class="sourceCode bash"><span class="kw">emacs</span></code> or <code class="sourceCode bash"><span class="kw">vi</span></code>), create a file called <code>aboutme.txt</code> in your new <code>ling334/hw1/</code> directory. In this file, answer the following questions about yourself:</p>
 <ul>
 <li>What is your linguistics background?</li>
 <li>What is your programming background?</li>
@@ -111,7 +111,7 @@ img {
 <div id="regular-expressions" class="section level1">
 <h1>Regular expressions</h1>
 <ol start="2" style="list-style-type: decimal">
-<li><p><em>Counting words.</em> In class, we used <code class="sourceCode bash"><span class="kw">egrep</span></code> to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn’t ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we’ll make use of the <code>-o</code> flag in <code class="sourceCode bash"><span class="kw">egrep</span></code> to return only the matched string:</p>
+<li><p><strong>Counting words.</strong> In class, we used <code class="sourceCode bash"><span class="kw">egrep</span></code> to find lines of a file that contained a string matching a particular regular expression. This is useful when wanting to see the context a match occurs in, but it isn’t ideal for counting occurrences, because it only counts each line once, even if a line contains multiple matches. So for this problem, we’ll make use of the <code>-o</code> flag in <code class="sourceCode bash"><span class="kw">egrep</span></code> to return only the matched string:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">egrep</span> -o <span class="kw">&lt;</span>pattern<span class="kw">&gt;</span> <span class="kw">&lt;</span>filename<span class="kw">&gt;</span></code></pre>
 <p>This will return each match on a separate line. As in class, we can pipe the output of <code class="sourceCode bash"><span class="kw">egrep</span></code> to <code class="sourceCode bash"><span class="kw">wc</span></code> to count the number of matches.</p>
 <p>Using this method, you’ll count the number of times each of a list of words occurs in the Brown corpus. The full Brown corpus can be found in one file at <code class="sourceCode bash"><span class="ot">$NLTK_DATA</span><span class="kw">/corpora/brown/brown_all.txt</span></code>. (<code class="sourceCode bash"><span class="ot">$NLTK_DATA</span></code> is a variable that was defined when you followed the class’s nltk setup instructions.) Make sure your regular expressions:</p>
@@ -145,7 +145,7 @@ spectrometer
 that
 sockdologizing</code></pre>
 <p>Finally, short answer questions to include in your PDF write up: What general correlation do you see in the counts? What words are examples that break this pattern? Test a few and note whether they do indeed break the pattern. Speculate about why this correlation might emerge in a language system.</p></li>
-<li><p><em>Say what?</em> In English, the verb <em>say</em> can appear with a full sentence (as in ‘say it ain’t so’) or an embedded question (as in ‘say what you did’ or ‘say who you met’). Use <code>egrep</code> as in the previous problem to answer the following questions about <em>say</em>. Again, save each regular expression and the number of hits it gets in a file called <code>problem3.txt</code>. (Answer the other questions in your PDF.)</p>
+<li><p><strong>Say what?</strong> In English, the verb <em>say</em> can appear with a full sentence (as in ‘say it ain’t so’) or an embedded question (as in ‘say what you did’ or ‘say who you met’). Use <code>egrep</code> as in the previous problem to answer the following questions about <em>say</em>. Again, save each regular expression and the number of hits it gets in a file called <code>problem3.txt</code>. (Answer the other questions in your PDF.)</p>
 <ul>
 <li>How many times does the past tense verb <em>said</em> occur in the Brown corpus?</li>
 <li>When <em>said</em> occurs with a full sentence, it often uses the complementizer <em>that</em>. How often does <em>said</em> occur with <em>that</em> immediately following? If we assume that all of these cases are actually the complementizer <em>that</em> (and not, e.g., the pronoun <em>that</em> as in ‘I never said that.’), what proportion of the time is <em>said</em> used with the complementizer <em>that</em>?</li>
@@ -157,10 +157,10 @@ sockdologizing</code></pre>
 <div id="python" class="section level1">
 <h1>Python</h1>
 <ol start="4" style="list-style-type: decimal">
-<li><p><em>Basic python.</em> Create a python script called <code>problem4.py</code>. In this program, initialize a variable</p>
+<li><p><strong>Basic python.</strong> Create a python script called <code>problem4.py</code>. In this program, initialize a variable</p>
 <pre class="sourceCode python"><code class="sourceCode python">sentence = <span class="st">&quot;isn't python so much fun?&quot;</span></code></pre>
 <p>Now, make the script print out each word from <code>sentence</code> on a separate line. (Hint: use the string’s <code class="sourceCode python">split()</code> method, a <code class="sourceCode python"><span class="kw">for</span></code> loop, and the <code class="sourceCode python"><span class="dt">print</span></code> statement.) Test your script by running <code class="sourceCode bash"><span class="kw">python</span> problem4.py</code> to make sure it works.</p></li>
-<li><p><em>Regular expressions in python.</em> Create <code>problem5.py</code> in <code>ling334/hw1/</code>. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called <code>browncaps.txt</code> in <code>ling334/hw1/</code>. To verify that your script works, run it from the terminal and then look at <code>browncaps.txt</code> to verify its output.</p>
+<li><p><strong>Regular expressions in python.</strong> Create <code>problem5.py</code> in <code>ling334/hw1/</code>. Have the script go through each line of the brown corpus (the single file mentioned above), check whether each line contains at least 3 capitalized words (using a single regular expression), and write those lines that do to a file called <code>browncaps.txt</code> in <code>ling334/hw1/</code>. To verify that your script works, run it from the terminal and then look at <code>browncaps.txt</code> to verify its output.</p>
 <p>Important note: The first part of the path to the Brown corpus given above with the dollar sign (<code class="sourceCode bash"><span class="ot">$NLTK_DATA</span></code>) is a shell variable that python doesn’t have access to. Instead, you’ll need to specify the path to the Brown corpus like this:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> nltk
 brown_filename = nltk.data.path[<span class="dv">0</span>] + <span class="st">&quot;/corpora/brown/brown_all.txt&quot;</span></code></pre>
