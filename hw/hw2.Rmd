@@ -30,7 +30,7 @@ iterate over each line (which is a word plus a newline character), use `rstrip()
     ```
     /sscc/home/k/kob734/nltk_data/corpora/brown/brown_100.txt
     ```
-    This corpus is represented as one sentence per line with a space separating all words. You'll need to split the sentences into a list of words (e.g., using the string's `.split()`{.python} member function), convert each word to lowercase (e.g., using the string's `.lower()`{.python} member function) and add the end-of-sentence word `</s>'.
+    This corpus is represented as one sentence per line with a space separating all words. You'll need to split the sentences into a list of words (e.g., using the string's `.split()`{.python} member function), convert each word to lowercase (e.g., using the string's `.lower()`{.python} member function) and add the end-of-sentence word `</s>`.
 
     First, copy your code from problem 1 to load the dictionary mapping words to indices. Then `import numpy as np`{.python} and initialize the numpy vector of counts with zeros. Finally, iterate through the sentences and increment counts for each of the words they contain.
 
