@@ -1,4 +1,4 @@
-hwbase=hw1 hw2 project
+hwbase=hw1 hw2 hw3 project
 hwhtml=$(addsuffix .html, $(hwbase))
 all : $(hwhtml)
 
