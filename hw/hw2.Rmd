@@ -1,7 +1,6 @@
 ---
 title: 'Ling 334: Homework 2'
 author: 'Instructor: Klinton Bicknell'
-date: "Due: April 28, 2015"
 output:
   html_document:
     highlight: pygments
