@@ -1,0 +1,22 @@
+\documentclass[tikz,convert={outfile=\jobname.svg}]{standalone}
+
+\begin{document}
+  \begin{tikzpicture}
+    \tikzstyle{place}=[circle,draw,inner sep=2pt,minimum size=1cm]
+    \node[place] (start) at (-1.5,0){\textless{}s\textgreater{}};
+    \node[place] (t1) at (0,0){$t_1$};
+    \node[place] (w1) at (0,-1.5){$w_1$};
+    \node[place] (t2) at (1.5,0){$t_2$};
+    \node[place] (w2) at (1.5,-1.5){$w_2$};
+    \node[place] (t3) at (3,0){$t_3$};
+    \node[place] (w3) at (3,-1.5){$w_3$};
+    \node[place] (t4) at (4.5,0){$t_4$};
+    \draw [->] (start) -- (t1);
+    \draw [->] (t1) -- (w1);
+    \draw [->] (t2) -- (w2);
+    \draw [->] (t3) -- (w3);
+    \draw [->] (t1) -- (t2);
+    \draw [->] (t2) -- (t3);
+    \draw [->] (t3) -- (t4);
+  \end{tikzpicture}
+\end{document}

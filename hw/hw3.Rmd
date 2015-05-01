@@ -63,5 +63,35 @@ model and save it as `trigram_kn.lm`. Then calculate the perplexity of our toy c
     
 ## HMMs
 
+For the following questions, consider the following toy HMM, with corresponding transition matrix and emission matrix. Remember that the conditioning information is specified in the rows of the matrix, so that the $p(\mbox{N}|\mbox{V})$ is 0.6 and $p(\mbox{V}|\mbox{N})$ is 0.5.
+
+**Graphical model**
+
+<figure><img src="hmm.svg" style="width:500px"></figure>
+
+**Transition matrix**
+
+\     | Start | N   | A   | V   | End
+----- | ----- | --- | --- | --- | ---
+Start | 0     | 0.8 | 0.2 | 0   | 0
+N     | 0     | 0.3 | 0   | 0.5 | 0.2
+A     | 0     | 0.8 | 0.2 | 0   | 0
+V     | 0     | 0.6 | 0.2 | 0   | 0.2
+End   | 0     | 0   | 0   | 0   | 0
+
+**Emission matrix**
+
+\ | young | man | wall
+- | ----- | --- | ----
+N | 0.2   | 0.4 | 0.4
+A | 1     | 0   | 0
+V | 0     | 0.5 | 0.5
+
 2. **Simple inference in an HMM** [Written answers only]
   
+    (a) Given this graphical model, factor the joint probability $p(w_1, w_2, w_3, t_1, t_2, t_3, t_4)$ into seven terms by using the conditional independence relationships specified by the model. Write this answer.
+
+    (b) What is the probability of $w_2=\mbox{man}$ given that $t_2=N$, i.e., $p(w_2=\mbox{man}|t_2=N)$?
+
+    (c) What is the probability of $w_2=\mbox{man}$ given that $t_1=N$, i.e., $p(w_2=\mbox{man}|t_1=N)$?
+    
