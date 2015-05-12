@@ -1,0 +1,45 @@
+\documentclass[tikz,convert={outfile=\jobname.svg}]{standalone}
+
+\begin{document}
+  \begin{tikzpicture}
+    \tikzstyle{place}=[circle,draw,inner sep=2pt,minimum size=1cm]
+    \node[place] (start) at (0,6){\textless{}s\textgreater{}};
+    \node[place] (N1) at (1.5,4.5){N1};
+    \node[place] (A1) at (1.5,3){A1};
+    \node[place] (V1) at (1.5,1.5){V1};
+    \node[draw=none] (w1) at (1.5,0){young};
+    \node[place] (N2) at (3,4.5){N2};
+    \node[place] (A2) at (3,3){A2};
+    \node[place] (V2) at (3,1.5){V2};
+    \node[draw=none] (w2) at (3,0){man};
+    \node[place] (N3) at (4.5,4.5){N3};
+    \node[place] (A3) at (4.5,3){A3};
+    \node[place] (V3) at (4.5,1.5){V3};
+    \node[draw=none] (w3) at (4.5,0){wall};
+    \node[place] (end) at (6,6){\textless{}/s\textgreater{}};
+    \draw [->] (start) -- (N1);
+    \draw [->] (start) -- (A1);
+    \draw [->] (start) -- (V1);
+    \draw [->] (N1) -- (N2);
+    \draw [->] (N1) -- (A2);
+    \draw [->] (N1) -- (V2);
+    \draw [->] (A1) -- (N2);
+    \draw [->] (A1) -- (A2);
+    \draw [->] (A1) -- (V2);
+    \draw [->] (V1) -- (N2);
+    \draw [->] (V1) -- (A2);
+    \draw [->] (V1) -- (V2);
+    \draw [->] (N2) -- (N3);
+    \draw [->] (N2) -- (A3);
+    \draw [->] (N2) -- (V3);
+    \draw [->] (A2) -- (N3);
+    \draw [->] (A2) -- (A3);
+    \draw [->] (A2) -- (V3);
+    \draw [->] (V2) -- (N3);
+    \draw [->] (V2) -- (A3);
+    \draw [->] (V2) -- (V3);
+    \draw [->] (N3) -- (end);
+    \draw [->] (A3) -- (end);
+    \draw [->] (V3) -- (end);
+  \end{tikzpicture}
+\end{document}
