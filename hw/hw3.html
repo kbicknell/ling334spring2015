@@ -77,7 +77,7 @@ img {
 </div>
 
 
-<p><em>Turning it in.</em> You’ll turn in your short answers in PDF form via Canvas. Your code will be ‘turned in’ by putting it in the <code>~/ling334/hw3/</code> folder, and running the command <code class="sourceCode bash"><span class="kw">chmod</span> -R g+r ~/ling334/hw2/</code> on the SSCC when you’ve finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.</p>
+<p><em>Turning it in.</em> You’ll turn in your short answers in PDF form via Canvas. Your code will be ‘turned in’ by putting it in the <code>~/ling334/hw3/</code> folder, and running the command <code class="sourceCode bash"><span class="kw">chmod</span> -R g+r ~/ling334/hw3/</code> on the SSCC when you’ve finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.</p>
 <div id="more-n-grams" class="section level2">
 <h2>More <span class="math">\(n\)</span>-grams</h2>
 <ol style="list-style-type: decimal">
@@ -119,8 +119,8 @@ The lines of line command tell <code class="sourceCode bash"><span class="kw">ng
 <p>We can also easily switch to a trigram model instead of a bigram model, by changing <code>-order 2</code> to <code>-order 3</code>. Change the Kneser-Ney-smoothed model into a trigram model and save it as <code>trigram_kn.lm</code>. Then calculate the perplexity of our toy corpus with this model. <em>What is it? Did it improve? Why do you think this is?</em></p></li>
 </ol>
 </div>
-<div id="toy-hmms" class="section level2">
-<h2>Toy HMMs</h2>
+<div id="hmms-by-hand" class="section level2">
+<h2>HMMs by hand</h2>
 <p>For the following questions, consider the following toy HMM, with corresponding transition matrix and emission matrix. Remember that the conditioning information is specified in the rows of the matrix, so that the <span class="math">\(p(\mbox{N}|\mbox{V})\)</span> is 0.6 and <span class="math">\(p(\mbox{V}|\mbox{N})\)</span> is 0.5.</p>
 <p><strong>Graphical model</strong></p>
 <figure>
@@ -237,8 +237,8 @@ The lines of line command tell <code class="sourceCode bash"><span class="kw">ng
 <p>Finally, compute and report the probability of this most-likely sequence given that we know the words: i.e., <span class="math">\(p(\mbox{tags}|\mbox{words})\)</span>. What other tag sequences do you think also have substantial probability?</p></li>
 </ol>
 </div>
-<div id="less-toy-hmms" class="section level2">
-<h2>Less-toy HMMs</h2>
+<div id="hmms-with-python" class="section level2">
+<h2>HMMs with Python</h2>
 <ol start="5" style="list-style-type: decimal">
 <li><p><strong>Training an HMM</strong> [Coding only: save code as <code>problem5.py</code>]</p>
 <p>For this assignment, you’ll build and train an HMM using python. Recall that an HMM has two sets of parameters: the transition probabilities and the emission probabilities. Each of these can be stored in a numpy matrix, just like the parameters of the bigram model from homework 2. For homework 2, each row specified the previous word and each column gave the current word. Now, for the transition probabilities of the HMM, each row will specify the previous tag and each column will give the current tag. For the emission probabilities, each row will specify a tag and each column a word. When you initialize these, note that the transition matrix will be square, with both dimensions being equal to the number of tags, while the emission matrix will be rectangular, with the number of rows equal to the number of tags, but the number of columns equal to the number of words.</p>

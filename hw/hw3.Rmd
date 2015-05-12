@@ -6,7 +6,7 @@ output:
     highlight: pygments
 ---
 
-_Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your code will be 'turned in' by putting it in the `~/ling334/hw3/` folder, and running the command `chmod -R g+r ~/ling334/hw2/`{.bash} on the SSCC when you've finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.
+_Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your code will be 'turned in' by putting it in the `~/ling334/hw3/` folder, and running the command `chmod -R g+r ~/ling334/hw3/`{.bash} on the SSCC when you've finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.
 
 
 ## More $n$-grams
@@ -61,7 +61,7 @@ _Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your 
     We can also easily switch to a trigram model instead of a bigram model, by changing `-order 2` to `-order 3`. Change the Kneser-Ney-smoothed model into a trigram
 model and save it as `trigram_kn.lm`. Then calculate the perplexity of our toy corpus with this model. _What is it? Did it improve? Why do you think this is?_
     
-## Toy HMMs
+## HMMs by hand
 
 For the following questions, consider the following toy HMM, with corresponding transition matrix and emission matrix. Remember that the conditioning information is specified in the rows of the matrix, so that the $p(\mbox{N}|\mbox{V})$ is 0.6 and $p(\mbox{V}|\mbox{N})$ is 0.5.
 
@@ -115,7 +115,7 @@ For the next two questions, consider the following Viterbi/forward algorithm lat
 
     Finally, compute and report the probability of this most-likely sequence given that we know the words: i.e., $p(\mbox{tags}|\mbox{words})$. What other tag sequences do you think also have substantial probability?
     
-## Less-toy HMMs
+## HMMs with Python
 
 5. **Training an HMM** [Coding only: save code as `problem5.py`]
 
