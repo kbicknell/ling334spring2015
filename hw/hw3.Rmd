@@ -159,3 +159,22 @@ counts. You'll update the emission probability counts matrix with the current wo
     * $p(\mbox{vb}|\mbox{to})$ [note: this is the tag `to', not the word]
     
     The first two of these should equal 0.132930513595 and 0.0876132930514.
+    
+6. **Evaluating an HMM** [Written answers and coding: modify `problem5.py`]
+
+    As the final problem, you'll add code to the bottom of `problem5.py` to calculate the probability of this toy corpus:
+
+        /sscc/home/k/kob734/nltk_data/corpora/brown/toy_pos_corpus.txt
+
+    Specifically, you'll calculate the full probability of each sentence of the corpus, including all the tags and all the words $p(w, t)$. Write these probabilities to a file `pos_eval.txt`, one per line. If everything is working correctly, the second of these should equal 1.42536540182e-17.
+
+    Look at the toy corpus and you'll see that it contains just two lines: the same words with two different part-of-speech tag sequences. Which one is assigned higher probability? (Note: These numbers are all in scientific notation, so e-15 means $\times 10^{-15}$.) Do you have any
+intuitions why that might be? The tag meanings are as follows:
+
+  tag | meaning
+  --- | -------
+  NN  | common noun
+  TO  | infinitive marker _to_ (e.g., 'to dream')
+  IN  | preposition
+  VB  | verb
+  JJ  | adjective
