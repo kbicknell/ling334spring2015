@@ -61,7 +61,7 @@ _Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your 
     We can also easily switch to a trigram model instead of a bigram model, by changing `-order 2` to `-order 3`. Change the Kneser-Ney-smoothed model into a trigram
 model and save it as `trigram_kn.lm`. Then calculate the perplexity of our toy corpus with this model. _What is it? Did it improve? Why do you think this is?_
     
-## HMMs
+## Toy HMMs
 
 For the following questions, consider the following toy HMM, with corresponding transition matrix and emission matrix. Remember that the conditioning information is specified in the rows of the matrix, so that the $p(\mbox{N}|\mbox{V})$ is 0.6 and $p(\mbox{V}|\mbox{N})$ is 0.5.
 
@@ -108,3 +108,54 @@ For the next two questions, consider the following Viterbi/forward algorithm lat
     $N1: p(\mbox{N} | \mbox{start})p(\mbox{young} | \mbox{N}) = 0.8(0.2) = 0.16$
     
     Make sure to include the forward probability at the end node (i.e., your final answer).
+
+4. **The Viterbi algorithm** [Written answers only]
+
+    Now, use the lattice again to calculate the Viterbi probability at each node. Also mention for each node the backtrace (i.e., which node at the previous time step the most likely path originates from). After completing this, give the most likely sequence of parts-of-speech for this sentence, and the Viterbi probability of that sequence.
+
+    Finally, compute and report the probability of this most-likely sequence given that we know the words: i.e., $p(\mbox{tags}|\mbox{words})$. What other tag sequences do you think also have substantial probability?
+    
+## Less-toy HMMs
+
+5. **Training an HMM** [Coding only: save code as `problem5.py`]
+
+    For this assignment, you'll build and train an HMM using python. Recall that an HMM has two sets of parameters: the transition probabilities and the emission probabilities. Each of these can be stored in a numpy matrix, just like the parameters of the bigram model from homework 2. For homework 2, each row specified the previous word and each column gave the current word. Now, for the transition probabilities of the HMM, each row will specify the previous tag and each column will give the current tag. For the emission probabilities, each row will specify a tag and each column a word. When you initialize these, note that the transition matrix will be square, with both dimensions being equal to the number of tags, while the emission matrix will be rectangular, with the number of rows equal to the number of tags, but the number of columns equal to the number of words.
+
+    The training corpus you'll use can be found at
+
+        /sscc/home/k/kob734/nltk_data/corpora/brown/brown_100_pos.txt
+
+    In this corpus, as before, words are separated by spaces (and punctuation is again treated as a word). However, now, each word is combined with a tag with a slash, e.g.,
+    
+        The/AT cat/NN on/IN the/AT mat/NN ...
+
+    Thus, you'll iterate through each line, iterate through each word-tag pair in each line (after splitting it by spaces), and then split each word-tag-pair into a word and tag by splitting it on the `/`. As before, you'll need to make sure to make everything lowercase and add an end-of-sentence marker to each line. Because the `/` character is used to separate words from tags, you should use `'<end>'`{.python} instead of `'</s>'`{.python} as the end-of-sentence marker for this assignment.
+
+    Just like last time, you'll fill the matrix with counts by going through the corpus, and then normalize it using the same commands as last time. On each word-tag pair, you'll be updating two
+counts. You'll update the emission probability counts matrix with the current word and tag. Then, you'll update the tag transition matrix using the previous tag and current tag. You'll thus need to keep track of the previous tag, and initialize it at the beginning of each sentence with `'<s>'`{.python}.
+
+    You'll need to have a words-to-indices dictionary like last time, which you can initialize just like last time, but with this file now:
+
+        /sscc/home/k/kob734/nltk_data/corpora/brown/brown_words_hw3.txt
+    
+    Additionally, you'll need a tags-to-indices dictionary, which you'll initialize with this file:
+
+        /sscc/home/k/kob734/nltk_data/corpora/brown/brown_tags_hw3.txt
+
+    To verify that your emission probabilities are working properly, write the following probabilities to a file called `emission.txt` (one per line):
+
+    * $p(\mbox{weekend}|\mbox{nn})$
+    * $p(\mbox{texas}|\mbox{np})$
+    * $p(\mbox{to}|\mbox{to})$
+    * $p(\mbox{old}|\mbox{jj})$
+
+    The first two of these should equal 0.00302114803625 and 0.018691588785.
+
+    To verify that your transition probabilities are working properly, write the following probabilities to a file called `transition.txt` (one per line):
+
+    * $p(\mbox{nn}|\mbox{nn})$
+    * $p(\mbox{.}|\mbox{nn})$
+    * $p(\mbox{<end>}|\mbox{.})$
+    * $p(\mbox{vb}|\mbox{to})$ [note: this is the tag `to', not the word]
+    
+    The first two of these should equal 0.132930513595 and 0.0876132930514.
