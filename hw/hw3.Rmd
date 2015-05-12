@@ -1,5 +1,5 @@
 ---
-title: 'Ling 334: Homework 2'
+title: 'Ling 334: Homework 3'
 author: 'Instructor: Klinton Bicknell'
 output:
   html_document:
