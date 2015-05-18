@@ -45,5 +45,21 @@ _Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your 
     
     Given that the model is assigning a probability of only about 1/3 to the word it thinks was most likely intended (and thus is not very sure what was intended), we can get a fuller sense of the model's inferences by looking at other words that have substantial posterior probability. In order to investigate this, note that the `np.where()` function can be used to find the entries in a matrix that meet a particular threshold. For example, `np.where(x > threshold)[0]`{.python} will return a list of the indices of a vector that correspond to values above `threshold`.
     
-    _Q: Which words does the model assign a posterior probability higher than 0.05 to, and what probabilities does it assign to each of these? Is "late" in this list? Do all of the words in this list seem like reasonable guesses to you for what was intended? Why or why not?_
+    _Q: Which words does the model assign a posterior probability higher than 0.05 to, and what probabilities does it assign to each of these? Is "late"   in this list? Do all of the words in this list seem like reasonable guesses to you for what was intended? Why or why not?_
     _Q: If you were developing this autocorrect system, which part of the model would you improve next to improve the model's performance? Why?_
+
+## Searching treebanks
+
+2. **A questionable rule** [Written answers only.]
+
+    In the Penn Treebank (the syntactically annotated corpus we discussed in class -- easily the most widely used syntactically annotated corpus), determiners like "the" have the preterminal category `DT`. It might be surprising, then, that the corpus has a number of instances of a rule `NP` $\rightarrow$ `DT`, i.e., a noun phrase rewriting as just a determiner with no noun. Combined with a standard rule like `S` $\rightarrow$ `NP VP`, this makes sentences like "The walked down the street." actually grammatical in a grammar learned from the Penn Treebank. It is thus quite surprising that the Treebank contains such rules! To investigate, you'll use `tregex` to determine what this rule is being used for, and how it could ever be grammatical.
+
+    On the SSCC, you can run `tregex` on the Penn Treebank like so
+    ```bash
+    ~kob734/tregex/tregex.sh 'PATTERN' ~kob734/nltk_data/corpora/treebank/combined/
+    ```
+    To find all the instances in the corpus of an `NP` rewriting as just a `DT`, note that `X <: Y` asks `tregex` to find an `X` category whose only child is `Y`. In order to gain more insight into what's going on here, note that you can pass the command-line flag `-w` to `tregex`, by placing it between `tregex.sh`{.bash} and the pattern, to request that `tregex` show the full sentence for each sentence that contains a constituent matching the pattern (instead of just showing the constituent itself, as it the default behavior).
+
+    Additionally, because syntactic corpora often contain annotation on nodes (for example, having an `NP-SUBJ` category in addition to `NP`), it is often the case that we want searches to ignore annotation. By default, if you ask `tregex` to match `NP` nodes, it will only match nodes labeled exactly `NP`, and not `NP-SUBJ`. To request that it match all `NP` nodes, whether annotated or not, replace `NP` in the pattern with `@NP`. You should ignore annotation in all your searches for this homework.
+    
+    _Q: How many instances of the `NP` $\rightarrow$ `DT` rule are there in the corpus? Looking at the matches in detail, what grammatical structure is this rule generally being used for? How could we change the grammar used in the Penn Treebank such that it allowed this (grammatical) structure but didn't allow ungrammatical structures like "The walked down the street."_
