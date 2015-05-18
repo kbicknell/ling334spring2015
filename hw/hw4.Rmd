@@ -1,0 +1,49 @@
+---
+title: 'Ling 334: Homework 4'
+author: 'Instructor: Klinton Bicknell'
+output:
+  html_document:
+    highlight: pygments
+---
+
+_Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your code will be 'turned in' by putting it in the `~/ling334/hw4/` folder, and running the command `chmod -R g+r ~/ling334/hw4/`{.bash} on the SSCC when you've finished. Remember to list all others you worked with at the top of your assignment. Also remember that you must do your own write-up and your own programming.
+
+
+## Noisy-channel models
+
+1. **Autocorrect** [Written answers and coding: save code as `problem1.py`.]
+
+    For this problem, you'll be implementing a noisy-channel based autocorrect system. In particular, you'll be implementing the system for a particular example. A user has typed "I'm running larw" and the system will be determining what it should correct "larw" into (assuming that "I'm running" was typed correctly.) In case you haven't ever noticed yourself type this one, note that the string "rw" can be typed by just shifting the whole hand slightly to the left when intending to type "te", so we probably have a good intuition for what the user really did intend to type here. The question is whether we can get a very simple autocorrect system to agree with us.
+
+    Recall from class that the goal of an autocorrect system is to find likely intended words $w$ given what a user actually typed "larw", i.e., to find a value of $w$ that makes $p(w|\mbox{larw})$ large. Bayes' rule tells us that we can calculate the posterior on $p(w|\mbox{larw})$ by multiplying together two components, (1) the probability that word $w$ would have been intended in this context $p(w)$ (the prior), and (2) the probability that a user intending to produce $w$ would actually have typed what they typed $p(\mbox{larw}|w)$ (the likelihood), and then (3) normalizing so that the probabilities of all possible intended words $w$ sum to 1.
+
+    The first component of this can be calculated from a language model, such as the $n$-gram models or HMMs that you implemented on previous homeworks. But since you've already implemented these, for this homework, I've already calculated these probabilities for you. In particular, I trained a Kneser-Ney-smoothed bigram model on a reasonably large corpus (the British National Corpus, 100 million words), and used it to calculate the probabilities of a set of about 700 candidate words to follow the word "running". You'll just be reading these probabilities from a file.
+
+    The second component is a noise model. I have also already calculated this for you. In particular, I used a very, very simple noise model, in which three of the error types have equal probability (deletion, insertion, substitution), and the fourth error type (transposition) is not even considered. These probabilities are not conditioned at all on the precise letters involves in the error, so for example, if a user intended to type "te", there is equal probability that they accidentally typed "rw" as that they accidentally typed "qm". You'll be reading these probabilities from a file as well.
+
+    What you'll need to do is first build a dictionary mapping words to indices (as in the previous two assignments) by reading the file
+    ```
+    /sscc/home/k/kob734/hw4materials/vocab.txt
+    ```
+    This vocabulary file includes the 669 fully alphabetic words in the BNC that differ from what was actually typed ("larw") by at most two errors. In addition to building a word-to-index dictionary, you should also build an object (dictionary or list) that maps in the other direction, index-to-word.
+
+    With those dictionaries in place, you'll build `numpy` vectors for the language model probabilities and the noise probabilities. In particular, you should initialize these two vectors to have the same length as the number of words in the vocabulary. Then iterate through the following two files to initialize each vector:
+    ```
+    /sscc/home/k/kob734/hw4materials/lm.txt
+    /sscc/home/k/kob734/hw4materials/noise.txt
+    ```
+    The formats of these two files is identical. Each line contains a word and a probability, separated by a tab. You'll need to use the word-to-index dictionary to figure out which element corresponds to each probability.
+
+    With those two vectors in place, you can calculate the posterior probabilities by multiplying them together and then normalizing:
+    ```python
+    unnorm_posterior = langprobs * noiseprobs
+    posterior = unnorm_posterior / np.sum(unnorm_posterior)
+    ```
+    The numpy vector `posterior`{.python} now gives the posterior probability of each word having been actually intended given the input "larw" in the context of "running", according to the model.
+    
+    _Q: Which word does the model think this is most likely to have been? If the answer is not what we know is actually the most likely answer ("late"), is it a reasonable guess? Why or why not?_ To answer this question, note that you can get the index of the maximum value in a vector by using numpy's `argmax()`{.python} function, e.g., `max_idx = np.argmax(posterior)`{.python}. The index-to-word mapping you constructed above will also come in handy here. To check your code, ensure that the model is assigning a probability of about 0.317897 to this most likely word.
+    
+    Given that the model is assigning a probability of only about 1/3 to the word it thinks was most likely intended (and thus is not very sure what was intended), we can get a fuller sense of the model's inferences by looking at other words that have substantial posterior probability. In order to investigate this, note that the `np.where()` function can be used to find the entries in a matrix that meet a particular threshold. For example, `np.where(x > threshold)[0]`{.python} will return a list of the indices of a vector that correspond to values above `threshold`.
+    
+    _Q: Which words does the model assign a posterior probability higher than 0.05 to, and what probabilities does it assign to each of these? Is "late" in this list? Do all of the words in this list seem like reasonable guesses to you for what was intended? Why or why not?_
+    _Q: If you were developing this autocorrect system, which part of the model would you improve next to improve the model's performance? Why?_
