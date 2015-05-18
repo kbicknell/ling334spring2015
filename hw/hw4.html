@@ -112,6 +112,113 @@ posterior = unnorm_posterior / np.<span class="dt">sum</span>(unnorm_posterior)<
 <p>To find all the instances in the corpus of an <code>NP</code> rewriting as just a <code>DT</code>, note that <code>X &lt;: Y</code> asks <code>tregex</code> to find an <code>X</code> category whose only child is <code>Y</code>. In order to gain more insight into what’s going on here, note that you can pass the command-line flag <code>-w</code> to <code>tregex</code>, by placing it between <code class="sourceCode bash"><span class="kw">tregex.sh</span></code> and the pattern, to request that <code>tregex</code> show the full sentence for each sentence that contains a constituent matching the pattern (instead of just showing the constituent itself, as it the default behavior).</p>
 <p>Additionally, because syntactic corpora often contain annotation on nodes (for example, having an <code>NP-SUBJ</code> category in addition to <code>NP</code>), it is often the case that we want searches to ignore annotation. By default, if you ask <code>tregex</code> to match <code>NP</code> nodes, it will only match nodes labeled exactly <code>NP</code>, and not <code>NP-SUBJ</code>. To request that it match all <code>NP</code> nodes, whether annotated or not, replace <code>NP</code> in the pattern with <code>@NP</code>. You should ignore annotation in all your searches for this homework.</p>
 <p><em>Q: How many instances of the <code>NP</code> <span class="math">\(\rightarrow\)</span> <code>DT</code> rule are there in the corpus? Looking at the matches in detail, what grammatical structure is this rule generally being used for? How could we change the grammar used in the Penn Treebank such that it allowed this (grammatical) structure but didn’t allow ungrammatical structures like “The walked down the street.”</em></p></li>
+<li><p><strong>Context-sensitivity in prepositions</strong> [Written answers only.]</p>
+<p>All the grammars we have talked about in this class are context-free. What this means is that the probabilities of a nonterminal rewriting in various ways doesn’t depend on its context. For example, in a PCFG, the probability that a prepositional phrase <code>PP</code> has a preposition like “in” as its first word is independent of whether that <code>PP</code> is embedded in a noun phrase (“the cat in the hat”) or embedded in a verb phrase (“was in the house”). In this question, you’ll test this assumption empirically.</p>
+<p>Specifically, you should count the number of times each of four common prepositions – “in”, “on”, “for”, and “to” – heads a <code>PP</code> that is a daughter of an <code>NP</code> and the number of times they head a <code>PP</code> that is a daughter of a <code>VP</code>.</p>
+A few helpful notes about using <code>tregex</code> for this:
+<ul>
+<li>You can use the command-line flag <code>-C</code> to omit printing the results and just print the total count of matches instead</li>
+<li>Remember how multiple rules combine in a pattern. For example, <code>X &gt; Y &lt; Z</code> matches an <code>X</code> category that has a <code>Y</code> as a parent and a <code>Z</code> as a child.</li>
+<li><code>tregex</code> has an is-headed-by operator <code>&lt;&lt;#</code>, so <code>NP &lt;&lt;# dog</code> matches <code>NP</code> categories whose head <code>N</code> is “dog”.</li>
+</ul>
+<p><em>Q: How many times do PPs headed by each of the four prepositions appear in each of the two types of phrase? Do there appear to be systematic differences between the two contexts in terms of which prepositions PPs tend to rewrite as, and if so, do you have any intuitions for what might explain them? How could we change our grammar using nonterminal annotation to allow the grammar to reflect this context sensitivity?</em></p></li>
+</ol>
+</div>
+<div id="parsing-with-context-free-grammars" class="section level2">
+<h2>Parsing with context-free grammars</h2>
+<p><strong>Probabilistic context-free grammar for problem 4</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">rule</th>
+<th align="left">probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>S</code> <span class="math">\(\rightarrow\)</span> <code>NP</code> <code>VP</code></td>
+<td align="left">0.8</td>
+</tr>
+<tr class="even">
+<td align="left"><code>S</code> <span class="math">\(\rightarrow\)</span> <code>VP</code></td>
+<td align="left">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>NP</code> <span class="math">\(\rightarrow\)</span> <code>PRP</code></td>
+<td align="left">0.3</td>
+</tr>
+<tr class="even">
+<td align="left"><code>NP</code> <span class="math">\(\rightarrow\)</span> <code>D</code> <code>N</code></td>
+<td align="left">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>NP</code> <span class="math">\(\rightarrow\)</span> <code>NP</code> <code>PP</code></td>
+<td align="left">0.2</td>
+</tr>
+<tr class="even">
+<td align="left"><code>VP</code> <span class="math">\(\rightarrow\)</span> <code>V</code> <code>NP</code></td>
+<td align="left">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>VP</code> <span class="math">\(\rightarrow\)</span> <code>VP</code> <code>PP</code></td>
+<td align="left">0.3</td>
+</tr>
+<tr class="even">
+<td align="left"><code>VP</code> <span class="math">\(\rightarrow\)</span> <code>V</code></td>
+<td align="left">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>PP</code> <span class="math">\(\rightarrow\)</span> <code>P</code> <code>NP</code></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left"><code>PRP</code> <span class="math">\(\rightarrow\)</span> he</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>N</code> <span class="math">\(\rightarrow\)</span> saw</td>
+<td align="left">0.4</td>
+</tr>
+<tr class="even">
+<td align="left"><code>N</code> <span class="math">\(\rightarrow\)</span> girl</td>
+<td align="left">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>N</code> <span class="math">\(\rightarrow\)</span> telescope</td>
+<td align="left">0.1</td>
+</tr>
+<tr class="even">
+<td align="left"><code>V</code> <span class="math">\(\rightarrow\)</span> telescope</td>
+<td align="left">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>V</code> <span class="math">\(\rightarrow\)</span> saw</td>
+<td align="left">0.8</td>
+</tr>
+<tr class="even">
+<td align="left"><code>D</code> <span class="math">\(\rightarrow\)</span> the</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>P</code> <span class="math">\(\rightarrow\)</span> with</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<ol start="4" style="list-style-type: decimal">
+<li><p><strong>Probabilistic parsing</strong> [Written answers]</p>
+<p>The sentence “He saw the girl with the telescope.” is a relatively famous example of syntactic ambiguity in linguistics. <em>Q: What are the two meanings? Which do you think is more likely, and why?</em></p>
+Using the grammar given in the table above, find the most likely parse of this sentence using the probabilistic CKY algorithm. In particular, you should turn in a completely filled out parse table, labeling in each cell:
+<ul>
+<li>the indices of that cell (e.g., [0,2])</li>
+<li><p>each possible category for that cell, along with its probability and pointers to the one or two categories that compose to form it. The pointers should be represented not as arrows but as text, as in this example cell (not from this parse chart):</p>
+<pre><code>cell [1,4]
+S: p=0.002, VP[1,4]
+VP: p=0.004, V[1,2] NP[2,4]</code></pre></li>
+</ul>
+<p>This example cell indicates that an S could be formed in this cell with probability 0.002 from a unary rewrite of a VP spanning indices 1 to 4, and a VP could be formed with probability 0.004 from combining a V spanning indices 1 to 2 with an NP spanning 2 to 4.</p>
+<p><em>Q: Which parse does this grammar say is most likely? Write out this most likely parse as a tree. Which interpretation does this parse correspond to? What are the main reasons why this grammar prefers that parse? E.g., which probabilities of the grammar could you change to make the other parse be preferred?</em></p>
+<p><em>Q: Did the parse table reveal any other ambiguities in this sentence that surprised you, and if so, which ones and why?</em></p></li>
 </ol>
 </div>
 

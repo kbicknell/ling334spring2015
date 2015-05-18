@@ -63,3 +63,60 @@ _Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your 
     Additionally, because syntactic corpora often contain annotation on nodes (for example, having an `NP-SUBJ` category in addition to `NP`), it is often the case that we want searches to ignore annotation. By default, if you ask `tregex` to match `NP` nodes, it will only match nodes labeled exactly `NP`, and not `NP-SUBJ`. To request that it match all `NP` nodes, whether annotated or not, replace `NP` in the pattern with `@NP`. You should ignore annotation in all your searches for this homework.
     
     _Q: How many instances of the `NP` $\rightarrow$ `DT` rule are there in the corpus? Looking at the matches in detail, what grammatical structure is this rule generally being used for? How could we change the grammar used in the Penn Treebank such that it allowed this (grammatical) structure but didn't allow ungrammatical structures like "The walked down the street."_
+
+3. **Context-sensitivity in prepositions** [Written answers only.]
+
+    All the grammars we have talked about in this class are context-free. What this means is that the probabilities of a nonterminal rewriting in various ways doesn't depend on its context. For example, in a PCFG, the probability that a prepositional phrase `PP` has a preposition like "in" as its first word is independent of whether that `PP` is embedded in a noun phrase ("the cat in the hat") or embedded in a verb phrase ("was in the house"). In this question, you'll test this assumption empirically.
+
+    Specifically, you should count the number of times each of four common prepositions -- "in", "on", "for", and "to" -- heads a `PP` that is a daughter of an `NP` and the number of times they head a `PP` that is a daughter of a `VP`.
+
+    A few helpful notes about using `tregex` for this:
+    * You can use the command-line flag `-C` to omit printing the results and just print the total count of matches instead
+    * Remember how multiple rules combine in a pattern. For example, `X > Y < Z` matches an `X` category that has a `Y` as a parent and a `Z` as a child.
+    * `tregex` has an is-headed-by operator `<<#`, so `NP <<# dog` matches `NP` categories whose head `N` is "dog".
+
+    _Q: How many times do PPs headed by each of the four prepositions appear in each of the two types of phrase? Do there appear to be systematic differences between the two contexts in terms of which prepositions PPs tend to rewrite as, and if so, do you have any intuitions for what might explain them? How could we change our grammar using nonterminal annotation to allow the grammar to reflect this context sensitivity?_
+
+## Parsing with context-free grammars
+
+**Probabilistic context-free grammar for problem 4**
+
+rule                  | probability
+--------------------- | -----------
+`S` $\rightarrow$ `NP` `VP` | 0.8
+`S` $\rightarrow$ `VP` | 0.2
+`NP` $\rightarrow$ `PRP` | 0.3
+`NP` $\rightarrow$ `D` `N` | 0.5
+`NP` $\rightarrow$ `NP` `PP` | 0.2
+`VP` $\rightarrow$ `V` `NP` | 0.5
+`VP` $\rightarrow$ `VP` `PP` | 0.3
+`VP` $\rightarrow$ `V` | 0.2
+`PP` $\rightarrow$ `P` `NP` | 1 
+`PRP` $\rightarrow$ he | 1
+`N` $\rightarrow$ saw | 0.4
+`N` $\rightarrow$ girl | 0.5
+`N` $\rightarrow$ telescope | 0.1
+`V` $\rightarrow$ telescope | 0.2
+`V` $\rightarrow$ saw | 0.8
+`D` $\rightarrow$ the | 1
+`P` $\rightarrow$ with | 1
+
+4. **Probabilistic parsing** [Written answers]
+
+    The sentence "He saw the girl with the telescope." is a relatively famous example of syntactic ambiguity in linguistics. _Q: What are the two meanings? Which do you think is more likely, and why?_
+
+    Using the grammar given in the table above, find the most likely parse of this sentence using the probabilistic CKY algorithm. In particular, you should turn in a completely filled out parse table, labeling in each cell:
+    * the indices of that cell (e.g., [0,2])
+    * each possible category for that cell, along with its probability and pointers to the one or two categories that compose to form it. The pointers should be represented not as arrows but as text, as in this example cell (not from this parse chart):
+    ```
+    cell [1,4]
+    S: p=0.002, VP[1,4]
+    VP: p=0.004, V[1,2] NP[2,4]
+    ```
+
+    This example cell indicates that an S could be formed in this cell with probability 0.002 from a unary rewrite of a VP spanning indices 1 to 4, and a VP could be formed with probability 0.004 from combining a V spanning indices 1 to 2 with an NP spanning 2 to 4.
+    
+    _Q: Which parse does this grammar say is most likely? Write out this most likely parse as a tree. Which interpretation does this parse correspond to? What are the main reasons why this grammar prefers that parse? E.g., which probabilities of the grammar could you change to make the other parse be preferred?_
+    
+    _Q: Did the parse table reveal any other ambiguities in this sentence that surprised you, and if so, which ones and why?_
+
