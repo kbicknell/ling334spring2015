@@ -15,11 +15,11 @@ _Turning it in._ You'll turn in your short answers in PDF form via Canvas. Your 
 
     For this problem, you'll be implementing a noisy-channel based autocorrect system. In particular, you'll be implementing the system for a particular example. A user has typed "I'm running larw" and the system will be determining what it should correct "larw" into (assuming that "I'm running" was typed correctly.) In case you haven't ever noticed yourself type this one, note that the string "rw" can be typed by just shifting the whole hand slightly to the left when intending to type "te", so we probably have a good intuition for what the user really did intend to type here. The question is whether we can get a very simple autocorrect system to agree with us.
 
-    Recall from class that the goal of an autocorrect system is to find likely intended words $w$ given what a user actually typed "larw", i.e., to find a value of $w$ that makes $p(w|\mbox{larw})$ large. Bayes' rule tells us that we can calculate the posterior on $p(w|\mbox{larw})$ by multiplying together two components, (1) the probability that word $w$ would have been intended in this context $p(w)$ (the prior), and (2) the probability that a user intending to produce $w$ would actually have typed what they typed $p(\mbox{larw}|w)$ (the likelihood), and then (3) normalizing so that the probabilities of all possible intended words $w$ sum to 1.
+    Recall from class that the goal of an autocorrect system is to find likely intended words $w$ given what a user actually typed "larw", i.e., to find a value of $w$ that makes $p(w|\mbox{larw})$ large. Bayes' rule tells us that we can calculate the posterior on $p(w|\mbox{larw})$ by multiplying together two components, (1) the probability that word $w$ would have been intended in this context $p(w)$ (the prior), and (2) the probability that a user intending to produce $w$ would actually have typed what they typed $p(\mbox{larw}|w)$ (the likelihood), and then normalizing so that the probabilities of all possible intended words $w$ sum to 1.
 
     The first component of this can be calculated from a language model, such as the $n$-gram models or HMMs that you implemented on previous homeworks. But since you've already implemented these, for this homework, I've already calculated these probabilities for you. In particular, I trained a Kneser-Ney-smoothed bigram model on a reasonably large corpus (the British National Corpus, 100 million words), and used it to calculate the probabilities of a set of about 700 candidate words to follow the word "running". You'll just be reading these probabilities from a file.
 
-    The second component is a noise model. I have also already calculated this for you. In particular, I used a very, very simple noise model, in which three of the error types have equal probability (deletion, insertion, substitution), and the fourth error type (transposition) is not even considered. These probabilities are not conditioned at all on the precise letters involves in the error, so for example, if a user intended to type "te", there is equal probability that they accidentally typed "rw" as that they accidentally typed "qm". You'll be reading these probabilities from a file as well.
+    The second component is a noise model. I have also already calculated this for you. I used a very, very simple noise model in which three of the error types have equal probability (deletion, insertion, substitution), and the fourth error type (transposition) is not even considered. These probabilities are not conditioned at all on the precise letters involves in the error, so for example, if a user intended to type "te", there is equal probability that they accidentally typed "rw" as that they accidentally typed "qm". You'll be reading these probabilities from a file as well.
 
     What you'll need to do is first build a dictionary mapping words to indices (as in the previous two assignments) by reading the file
     ```
@@ -101,7 +101,7 @@ rule                  | probability
 `D` $\rightarrow$ the | 1
 `P` $\rightarrow$ with | 1
 
-4. **Probabilistic parsing** [Written answers]
+4. **Probabilistic parsing** [Written answers (+ optional bonus coding)]
 
     The sentence "He saw the girl with the telescope." is a relatively famous example of syntactic ambiguity in linguistics. _Q: What are the two meanings? Which do you think is more likely, and why?_
 
@@ -110,11 +110,13 @@ rule                  | probability
     * each possible category for that cell, along with its probability and pointers to the one or two categories that compose to form it. The pointers should be represented not as arrows but as text, as in this example cell (not from this parse chart):
     ```
     cell [1,4]
-    S: p=0.002, VP[1,4]
-    VP: p=0.004, V[1,2] NP[2,4]
+    S: p = 0.002, VP[1,4]
+    VP: p = 0.004, V[1,2] NP[2,4]
     ```
 
     This example cell indicates that an S could be formed in this cell with probability 0.002 from a unary rewrite of a VP spanning indices 1 to 4, and a VP could be formed with probability 0.004 from combining a V spanning indices 1 to 2 with an NP spanning 2 to 4.
+    
+    _Optional bonus:_ You may write a python program saved as `problem4.py` that implements probabilistic CKY and creates this same parse chart as a file `parsechart.txt` in the same format as the text example above. Cells in the chart should appear sequentially and be in row order, so that cell [1, 4] precedes cell [2, 1]. This bonus problem is worth up to an additional 1.5 points on this assignment (out of 4), which works out to about 6.5 percentage points added to your final grade. You may find the Jurafsky & Martin textbook helpful in specifying this algorithm in pseudocode.
     
     _Q: Which parse does this grammar say is most likely? Write out this most likely parse as a tree. Which interpretation does this parse correspond to? What are the main reasons why this grammar prefers that parse? E.g., which probabilities of the grammar could you change to make the other parse be preferred?_
     
